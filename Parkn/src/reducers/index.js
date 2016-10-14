@@ -1,7 +1,10 @@
 import {combineReducers} from 'redux';
+import navigation from './navigation';
+import authentication from './authentication';
 
 const rootReducer = combineReducers({
-  state: (state = {}) => state
+  navigation,
+  authentication,
 });
 
 export default rootReducer;

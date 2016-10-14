@@ -1,7 +1,10 @@
 import React, {Component, PropTypes} from 'react';
-import {Navigator} from 'react-native';
+import {View, StatusBar, Navigator, StyleSheet} from 'react-native';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import {values} from 'lodash/fp';
 import NavBar from './NavBar';
+import {didNavigateTo, navigateTo} from '../../actions/navigation';
 
 class Navigation extends Component {
   static propTypes = {
@@ -13,30 +16,75 @@ class Navigation extends Component {
 
     this.state = {
       initialRoute: values(props.routes).find(route => route.isInitial),
+      isNavigating: false,
     };
 
     this.renderScene = this.renderScene.bind(this);
+    this.onWillFocus = this.onWillFocus.bind(this);
+  }
+
+  componentWillReceiveProps({navigateToRoute}) {
+    if (navigateToRoute && !this.state.isNavigating) {
+      this.refs.navigator.push(this.routes[navigateToRoute.id]);
+    }
   }
 
   renderScene(route, navigator) {
-    const RouteComponent = this.props.routes[route.id].component;
+    const RouteComponent = route.component;
 
     return (
-      <RouteComponent
-        name={route.id}
-      />
+      <View style={styles.sceneWrapper}>
+        <StatusBar barStyle={route.statusBarStyle || "light-content"} />
+        <RouteComponent
+          go={{
+            to: this.props.navigateTo,
+            back: navigator.pop,
+          }}
+          navigator={navigator}
+          route={{...route, ...this.routes[route.id]}}
+          name={route.id}
+        />
+      </View>
     );
+  }
+
+  onWillFocus(route) {
+    this.props.didNavigateTo(route);
+    this.setState({isNavigating: false});
   }
 
   render() {
     return (
       <Navigator
+        ref="navigator"
         initialRoute={this.state.initialRoute}
         renderScene={this.renderScene}
+        onWillFocus={this.onWillFocus}
         navigationBar={<NavBar />}
       />
     );
   }
+
+  get routes() {
+    return this.props.routes;
+  }
 }
 
-export default Navigation;
+function mapStateToProps({navigation}) {
+  return navigation;
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    didNavigateTo,
+    navigateTo,
+  }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation);
+
+const styles = StyleSheet.create({
+  sceneWrapper: {
+    flex: 1,
+  }
+});

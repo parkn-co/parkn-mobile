@@ -7,6 +7,10 @@ import {
   Text,
   View,
 } from 'react-native';
+import {last} from 'lodash/fp';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import {grayPalette} from '../../styles/colors';
+import {fontNames} from '../../styles/fonts';
 
 function navButtonGenerator(side) {
   return (route, navigator, index, navState) => {
@@ -16,27 +20,16 @@ function navButtonGenerator(side) {
       return <View />;
     }
 
-    let text;
-    if (navButton.text) {
-      text = navButton.text(route, navigator, index, navState);
-    }
-
-    let icon;
-    if (navButton.icon) {
-      icon = navButton.icon(route, navigator, index, navState);
-    }
+    const text = navButton.text;
+    const icon = navButton.icon;
 
     return (
       <TouchableOpacity
         onPress={navButton.onPress}
         style={[styles.navBarComponent]}
       >
-        {icon && (
-          <Image
-            style={styles.buttonIcon}
-            source={Images[icon].source}
-            resizeMode="contain"
-          />
+        {icon && !navButton.isIconOnRight && (
+          <Icon name={icon} size={30} color="rgba(255,255,255,0.75)" />
         )}
 
         {text && (
@@ -44,6 +37,10 @@ function navButtonGenerator(side) {
             style={[styles.navBarText]}>
             {text}
           </Text>
+        )}
+
+        {icon && navButton.isIconOnRight && (
+          <Icon name={icon} size={30} color="rgba(255,255,255,0.75)" />
         )}
       </TouchableOpacity>
     );
@@ -79,10 +76,12 @@ const routeMapper = {
 
 export default class NavBar extends Component {
   render() {
+    const route = last(this.props.navState);
+
     return (
       <Navigator.NavigationBar {...this.props}
         routeMapper={routeMapper}
-        style={[styles.container]}
+        style={[styles.container, (route && route.nav) ? {} : styles.noNav]}
       />
     );
   }
@@ -98,7 +97,17 @@ const styles = StyleSheet.create({
   titleIcon: {
 
   },
+  noNav: {
+    height: 0,
+  },
   navBarComponent: {
-
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  navBarText: {
+    color: grayPalette.white,
+    opacity: 0.75,
+    fontFamily: fontNames.light,
+    fontSize: 20,
   },
 });
