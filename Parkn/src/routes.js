@@ -22,7 +22,7 @@ export default function getRoutes(user) {
       isSignUp: true,
     },
     SignIn: {
-      id: 'SignUpEmail',
+      id: 'SignIn',
       component: EmailForm,
     },
     SignUpPassword: {
