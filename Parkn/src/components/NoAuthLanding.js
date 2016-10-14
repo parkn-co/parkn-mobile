@@ -12,7 +12,7 @@ const NoAuthLanding = ({go}) => (
       <TouchableOpacity style={styles.button} onPress={() => go.to({id: 'SignUp'})}>
         <Text style={styles.buttonText}>{'Sign Up'}</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={() => go.to({id: 'SignIn'})}>
         <Text style={styles.buttonText}>{'Sign In'}</Text>
       </TouchableOpacity>
     </View>

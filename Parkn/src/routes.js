@@ -1,5 +1,6 @@
 import NoAuthLanding from './components/NoAuthLanding';
-import SignUpNames from './containers/Authentication/Names/Container';
+import {NamesForm, EmailForm, PasswordForm} from './containers/Authentication/Forms';
+import AwaitingAuthenticationContainer from './containers/Authentication/AwaitingAuthenticationContainer';
 import {assign} from 'lodash/fp';
 
 export default function getRoutes(user) {
@@ -13,8 +14,29 @@ export default function getRoutes(user) {
     },
     SignUp: {
       id: 'SignUp',
-      component: SignUpNames,
-      ...SignUpNames.route,
-    }
+      component: NamesForm,
+    },
+    SignUpEmail: {
+      id: 'SignUpEmail',
+      component: EmailForm,
+      isSignUp: true,
+    },
+    SignIn: {
+      id: 'SignUpEmail',
+      component: EmailForm,
+    },
+    SignUpPassword: {
+      id: 'SignUpPassword',
+      component: PasswordForm,
+      isSignUp: true,
+    },
+    SignInPassword: {
+      id: 'SignInPassword',
+      component: PasswordForm,
+    },
+    AwaitingAuthentication: {
+      id: 'AwaitingAuthentication',
+      component: AwaitingAuthenticationContainer,
+    },
   };
 }

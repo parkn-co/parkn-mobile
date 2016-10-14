@@ -1,44 +1,48 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {bluePalette, grayPalette} from '../../../styles/colors';
-import {fontNames} from '../../../styles/fonts';
-import UnderlinedTextInput from '../../../components/UnderlinedInput';
+import {bluePalette, grayPalette} from '../../styles/colors';
+import {fontNames} from '../../styles/fonts';
+import UnderlinedTextInput from '../../components/UnderlinedInput';
 
 export default SignUpNamesComponent = ({
   navigator,
-  firstName,
-  onFirstNameChange,
-  lastName,
-  onLastNameChange,
-  onSubmit
+  fields,
+  handleSubmit,
+  handleBackPress,
+  backButton,
+  submitButton,
 }) => (
   <View style={styles.container}>
     <View style={styles.buttonWrapper}>
+      {backButton ? (
+        <TouchableOpacity
+          onPress={handleBackPress}
+          style={styles.navButton}
+        >
+          <Icon name={backButton.icon} size={30} color="rgba(255,255,255,0.75)" />
+          <Text
+            style={styles.navText}>
+            {backButton.text}
+          </Text>
+        </TouchableOpacity>
+      ) : (
+        <View />
+      )}
+
       <TouchableOpacity
-        onPress={onSubmit}
+        onPress={handleSubmit}
         style={styles.navButton}
       >
         <Text
           style={styles.navText}>
-          {'Next'}
+          {submitButton.text}
         </Text>
-        <Icon name={'arrow-forward'} size={30} color="rgba(255,255,255,0.75)" />
+        <Icon name={submitButton.icon} size={30} color="rgba(255,255,255,0.75)" />
       </TouchableOpacity>
     </View>
     <View style={styles.inputs}>
-      <UnderlinedTextInput
-        label="First Name"
-        {...firstName}
-        onChangeText={onFirstNameChange}
-        autoCorrect={false}
-      />
-      <UnderlinedTextInput
-        label="Last Name"
-        {...lastName}
-        onChangeText={onLastNameChange}
-        autoCorrect={false}
-      />
+      {fields.map((field, i) => <UnderlinedTextInput {...field} key={i} />)}
     </View>
   </View>
 );
@@ -59,16 +63,18 @@ const styles = StyleSheet.create({
     opacity: 0.75,
     fontFamily: fontNames.light,
     fontSize: 20,
+    marginRight: 5,
+    marginLeft: 5,
   },
   inputs: {
     justifyContent: 'center',
   },
   buttonWrapper: {
     position: 'absolute',
-    top: 20,
+    top: 30,
     left: 10,
     right: 10,
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
   },
 })

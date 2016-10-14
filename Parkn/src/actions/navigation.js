@@ -11,5 +11,5 @@ export function didNavigateTo(route) {
   return {
     type: DID_NAVIGATE_TO,
     payload: route,
-  };
+  }
 }

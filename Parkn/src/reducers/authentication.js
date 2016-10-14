@@ -1,18 +1,24 @@
 // Import action handlers
-import {SET_NAMES} from '../actions/authentication';
+import {SET_FORM_VALUES} from '../actions/authentication';
 
 // Action Handlers
 const REDUCER_ACTION_HANDLERS = {
-   [SET_NAMES]: (state, {payload: {firstName, lastName}}) => ({
+   [SET_FORM_VALUES]: (state, {payload}) => ({
      ...state,
-     firstName,
-     lastName,
+     form: {...state.form, ...payload},
    }),
 };
 
 const initialState = {
-  firstName: '',
-  lastName: '',
+  form: {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  },
+  authenticationErrors: {},
+  token: null,
 };
 
 // Reducer
