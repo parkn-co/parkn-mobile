@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
   },
   error: {
-    color: 'red',
+    color: grayPalette.black,
     opacity: 0.75,
     fontFamily: fontNames.light,
     fontSize: 17,

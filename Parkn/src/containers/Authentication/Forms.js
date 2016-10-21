@@ -6,6 +6,7 @@ export const NamesForm = props => (
   <FormContainer
     {...props}
     fields={['firstName', 'lastName']}
+    backButton={true}
     nextForm={'SignUpEmail'}
   />
 );

@@ -6,18 +6,17 @@ import {
   View
 } from 'react-native';
 
-function Demo(props) {
+function Demo({user: {email, firstName, lastName}}) {
   return (
     <View style={styles.container}>
       <Text style={styles.welcome}>
-        Welcome to React Native!
+        {`Welcome to Parkn, ${firstName}!`}
       </Text>
       <Text style={styles.instructions}>
-        To get started, edit index.ios.js
+        {`Full Name: ${firstName} ${lastName}`}
       </Text>
       <Text style={styles.instructions}>
-        Press Cmd+R to reload,{'\n'}
-        Cmd+D or shake for dev menu
+        {`Email: ${email}`}
       </Text>
     </View>
   );

@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {values} from 'lodash/fp';
 import NavBar from './NavBar';
-import {didNavigateTo, navigateTo} from '../../actions/navigation';
+import {didNavigateTo, navigateTo, setIsNavigating} from '../../actions/navigation';
 
 class Navigation extends Component {
   static propTypes = {
@@ -25,7 +25,11 @@ class Navigation extends Component {
 
   componentWillReceiveProps({navigateToRoute}) {
     if (navigateToRoute && !this.state.isNavigating) {
-      this.refs.navigator.push(this.routes[navigateToRoute.id]);
+      this.props.setIsNavigating(true);
+
+      let method = navigateToRoute.method || 'push';
+
+      this.refs.navigator[method](this.routes[navigateToRoute.id]);
     }
   }
 
@@ -70,14 +74,15 @@ class Navigation extends Component {
   }
 }
 
-function mapStateToProps({navigation}) {
-  return navigation;
+function mapStateToProps({navigation, authentication: {token, user}}) {
+  return {...navigation, user, token};
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     didNavigateTo,
     navigateTo,
+    setIsNavigating,
   }, dispatch);
 }
 

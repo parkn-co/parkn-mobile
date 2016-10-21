@@ -3,13 +3,18 @@ import {startCase, assign, keys, isEmpty} from 'lodash/fp';
 import FormComponent from './FormComponent';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {setFormValues, authenticateWithValues} from '../../actions/authentication';
+import {
+  setFormValues,
+  authenticateWithValues
+} from '../../actions/authentication';
 
 class FormContainer extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      isSignUp: Boolean(props.route.isSignUp),
+    };
 
     props.fields.forEach(field => {
       this.state[field] = {
@@ -21,12 +26,14 @@ class FormContainer extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit() {
-    let errors = {};
+  componentWillReceiveProps({errors}) {
+    if (!isEmpty(errors)) {
 
-    if (this.props.validate) {
-      errors = this.props.validate(this.state);
     }
+  }
+
+  handleSubmit() {
+    const errors = this.props.validate ? this.props.validate(this.state) : {};
 
     this.props.fields.forEach(field => {
       if (this.state[field].value === '') {
@@ -54,7 +61,7 @@ class FormContainer extends Component {
     });
 
     if (this.props.isFinalForm) {
-      this.props.authenticateWithValues(formValues);
+      this.props.authenticateWithValues(this.state.isSignUp, formValues);
       this.props.go.to({id: 'AwaitingAuthentication'});
     } else {
       this.props.setFormValues(formValues);
@@ -71,13 +78,19 @@ class FormContainer extends Component {
   getFields() {
     const fieldProps = this.props.fieldProps || {};
 
-    return this.props.fields.map(field => ({
-      ...this.state[field],
-      label: startCase(field),
-      onChangeText: this.hanldeInputChange(field),
-      autoCorrect: false,
-      ...(fieldProps[field] || {})
-    }));
+    return this.props.fields.map(field => {
+      const {value, error} = this.state[field];
+      const resultError = this.props.errors[field];
+
+      return {
+        value,
+        error: error || resultError,
+        label: startCase(field),
+        onChangeText: this.hanldeInputChange(field),
+        autoCorrect: false,
+        ...(fieldProps[field] || {})
+      };
+    });
   }
 
   render() {
@@ -102,8 +115,8 @@ class FormContainer extends Component {
   }
 }
 
-function mapStateToProps({authentication: {form}}) {
-  return {...form};
+function mapStateToProps({authentication: {form, errors}}) {
+  return {...form, errors};
 }
 
 function mapDispatchToProps(dispatch) {

@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
 import {Provider} from 'react-redux';
-import createStore from './createStore';
-import Navigator from './containers/Navigation';
-import getRoutes from './routes';
+import {getStore} from './store';
+import App from './containers/App';
 
 export default class Parkn extends Component {
   render() {
     return (
-      <Provider store={createStore()}>
-        <Navigator routes={getRoutes()} />
+      <Provider store={getStore()}>
+        <App />
       </Provider>
     );
   }
