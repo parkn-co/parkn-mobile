@@ -36,7 +36,7 @@ export default AuthenticatedHOC = ComposedComponent => {
     }
 
     checkAuthentication({fetchUser, isAuthenticated, isFetching, isRehydrated, hasToken}) {
-      if (!this.state.isFetching && isRehydrated && !this.state.didCheck) {
+      if (!this.state.isFetching && isRehydrated && !this.state.didCheck && hasToken) {
         this.setState({isFetching: true, didCheck: true});
 
         fetchUser();

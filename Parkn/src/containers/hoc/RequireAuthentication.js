@@ -8,15 +8,25 @@ const RequireAuthenticationHOC = ComposedComponent => class RequireAuthenticatio
 
     this.state = {
       isNavigating: false,
+      isAuthenticated: !isEmpty(this.props.user),
     };
   }
 
   componentWillMount() {
-    if (isEmpty(this.props.user) && !this.state.isNavigating) {
-      this.props.go.to({id: 'NoAuthLanding', method: 'resetTo'});
-
-      this.setState({isNavigating: true});
+    if (!this.state.isAuthenticated && !this.state.isNavigating) {
+      this.redirect();
     }
+  }
+
+  componentWillReceiveProps({user}) {
+    if (isEmpty(user) && this.state.isAuthenticated) {
+      this.redirect();
+    }
+  }
+
+  redirect() {
+    this.props.go.to({id: 'NoAuthLanding', method: 'resetTo'});
+    this.setState({isNavigating: true, isAuthenticated: false});
   }
 
   render() {

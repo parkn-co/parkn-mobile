@@ -57,6 +57,20 @@ export function authenticateWithValues(isSignUp, values) {
   }
 }
 
+export const AUTH_SIGN_OUT = 'AUTH_SIGN_OUT';
+export function signOut() {
+  return (dispatch, getState) => {
+    // Get rid of token and user not matter what
+    AuthApi.signOut(getState)
+    .then(token => dispatch({
+      type: AUTH_SIGN_OUT,
+    }))
+    .catch(err => dispatch({
+      type: AUTH_SIGN_OUT,
+    }));
+  }
+}
+
 export const AUTH_FETCH_USER = 'AUTH_FETCH_USER';
 export function fetchUser() {
   return (dispatch, getState) => {

@@ -101,20 +101,28 @@ class ApiBase {
   }
 
   describeEndpoint(path) {
-    return `${this.apiUrl}${path}`;
+    return `${this.apiUrl}${path}/`;
   }
 
-  request(path, config) {
+  request(path, config = {}) {
     return new Promise((resolve, reject) => {
       let status;
 
       fetch(this.describeEndpoint(path), config)
         .then(res => {
           status = res.status;
-          
+
+          if (status === 404) {
+            return reject(res);
+          }
+
           return res.json();
         })
         .then(res => {
+          if (!res) {
+            return;
+          }
+
           if (res.success) {
             return resolve(res.data)
           }

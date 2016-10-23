@@ -45,7 +45,7 @@ class AwaitingAuthenticationContainer extends Component {
 
         navigator.popToRoute(route);
       } else {
-        console.log('Weird errror', route, isAuthenticated, errors);
+        console.log('Weird error', route, isAuthenticated, errors);
       }
     }
   }

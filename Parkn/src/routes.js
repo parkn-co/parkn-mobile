@@ -1,4 +1,4 @@
-import Demo from './components/Demo';
+import Demo from './containers/Demo';
 import NoAuthLanding from './components/NoAuthLanding';
 import {NamesForm, EmailForm, PasswordForm} from './containers/Authentication/Forms';
 import AwaitingAuthentication from './containers/Authentication/AwaitingAuthentication';

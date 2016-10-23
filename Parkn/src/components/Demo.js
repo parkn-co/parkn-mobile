@@ -3,10 +3,11 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  TouchableOpacity,
 } from 'react-native';
 
-function Demo({user: {email, firstName, lastName}}) {
+function Demo({handleSignOut, user: {email, firstName, lastName}}) {
   return (
     <View style={styles.container}>
       <Text style={styles.welcome}>
@@ -18,6 +19,9 @@ function Demo({user: {email, firstName, lastName}}) {
       <Text style={styles.instructions}>
         {`Email: ${email}`}
       </Text>
+      <TouchableOpacity style={styles.signOut} onPress={handleSignOut}>
+        <Text>{'Sign Out'}</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -56,4 +60,10 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  signOut: {
+    margin: 20,
+    padding: 10,
+    borderColor: '#333',
+    borderWidth: 1,
+  }
 });

@@ -10,12 +10,12 @@ export function signUp({email, firstName, lastName, password}) {
     .then(res => res);
 }
 
-export function signOut() {
-  Api.authPost('auth/signout');
+export function signOut(getState) {
+  return Api.authPost(getState, 'auth/signout');
 }
 
 export function fetchUser(getState) {
-  return Api.authGet(getState, 'users/')
+  return Api.authGet(getState, 'users')
     .then(res => res);
 }
 

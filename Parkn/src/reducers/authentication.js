@@ -2,6 +2,7 @@
 import {
   AUTH_SET_FORM_VALUES,
   AUTH_SIGN_IN,
+  AUTH_SIGN_OUT,
   AUTH_SET_ERRORS,
   AUTH_FETCH_USER,
   AUTH_IS_FETCHING,
@@ -17,7 +18,6 @@ const initialState = {
     password: '',
     confirmPassword: '',
   },
-  formType: '',
   errors: {},
   token: null,
   user: {},
@@ -32,10 +32,11 @@ const REDUCER_ACTION_HANDLERS = {
      isFetching: false,
    }),
    [AUTH_SIGN_IN]: (state, {payload: {token}}) => ({
-     ...state,
+     ...initialState,
      token,
      isFetching: false,
    }),
+   [AUTH_SIGN_OUT]: () => initialState,
    [AUTH_SET_ERRORS]: (state, {payload}) => ({
      ...state,
      errors: payload,
