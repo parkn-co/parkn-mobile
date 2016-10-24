@@ -6,6 +6,7 @@
     "lint": "eslint ./src",
     "lint-fix": "eslint --fix ./src",
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "dist:beta": "export $(cat .env | xargs) && cd ios/ && fastlane ios beta",
     "test": "jest"
   },
   "dependencies": {

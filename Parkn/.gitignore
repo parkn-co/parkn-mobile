@@ -35,7 +35,30 @@ node_modules/
 npm-debug.log
 
 # BUCK
+#
 buck-out/
 \.buckd/
 android/app/libs
 android/keystores/debug.keystore
+
+# React Native
+#
+**/main.jsbundle
+**/main.jsbundle.meta
+
+# Fastlane/Fabric dist stuff
+#
+**/Parkn.app.dSYM.zip
+
+# Secrets
+#
+.env
+
+# Cert stuff
+#
+*.certSigningRequest
+*.p12
+**/profiles/
+*.cer
+*.ipa
+*.mobileprovision

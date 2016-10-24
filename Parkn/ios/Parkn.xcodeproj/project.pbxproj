@@ -38,6 +38,8 @@
 		6B5BF6C81DB0680B004E616F /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6B5BF6BF1DB0680B004E616F /* OpenSans-SemiboldItalic.ttf */; };
 		6B5BF6CB1DB06828004E616F /* Moon-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6B5BF6C91DB06828004E616F /* Moon-Bold.otf */; };
 		6B5BF6CC1DB06828004E616F /* Moon-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6B5BF6CA1DB06828004E616F /* Moon-Light.otf */; };
+		6B8A47561DBD5B980062F4E9 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B8A47541DBD5B970062F4E9 /* Fabric.framework */; };
+		6B8A47571DBD5B980062F4E9 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B8A47551DBD5B970062F4E9 /* Crashlytics.framework */; };
 		7C6B9385CA764E08989033F2 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63364B96AD6D448A8C4D4039 /* EvilIcons.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		C2C0A69768E74E628E75A206 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CCDC145A754407A83C3FFFE /* Zocial.ttf */; };
@@ -167,6 +169,8 @@
 		6B5BF6BF1DB0680B004E616F /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
 		6B5BF6C91DB06828004E616F /* Moon-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Moon-Bold.otf"; sourceTree = "<group>"; };
 		6B5BF6CA1DB06828004E616F /* Moon-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Moon-Light.otf"; sourceTree = "<group>"; };
+		6B8A47541DBD5B970062F4E9 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		6B8A47551DBD5B970062F4E9 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		99EBAA4034264A4F87C97335 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
@@ -192,6 +196,7 @@
 			files = (
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
+				6B8A47571DBD5B980062F4E9 /* Crashlytics.framework in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
@@ -201,6 +206,7 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				3614F06548EB42C992322739 /* libRNVectorIcons.a in Frameworks */,
+				6B8A47561DBD5B980062F4E9 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,6 +334,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		6B8A47531DBD5B7B0062F4E9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6B8A47541DBD5B970062F4E9 /* Fabric.framework */,
+				6B8A47551DBD5B970062F4E9 /* Crashlytics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		6BC033CD1DB026B500E1BF65 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -373,6 +388,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				6B8A47531DBD5B7B0062F4E9 /* Frameworks */,
 				13B07FAE1A68108700A75B9A /* Parkn */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* ParknTests */,
@@ -421,6 +437,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				6B8A47521DBD5B290062F4E9 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -648,6 +665,19 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
 		};
+		6B8A47521DBD5B290062F4E9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run df6a7e11a0b5564996f51faf547cf9cf98a5124d f95c2f4a815f4b0a856603e5c77c7d7a5d42abd9311a0e1359827d0eb3ce09ff";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -739,6 +769,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 3SA95C9ZFH;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -764,6 +798,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3SA95C9ZFH;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
