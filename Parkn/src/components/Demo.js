@@ -1,3 +1,6 @@
+// @flow
+import type {User} from 'flow-declarations/user';
+
 import React, {Component} from 'react';
 import {
   AppRegistry,
@@ -7,7 +10,13 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-function Demo({handleSignOut, user: {email, firstName, lastName}}) {
+function Demo({
+  handleSignOut,
+  user: {email, firstName, lastName}
+}: {
+  handleSignOut: () => void,
+  user: User
+}): React.Element<*> {
   return (
     <View style={styles.container}>
       <Text style={styles.welcome}>

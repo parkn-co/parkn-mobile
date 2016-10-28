@@ -1,17 +1,21 @@
+// @flow
 import React, {Component, PropTypes} from 'react';
 import {View, TextInput, Text, StyleSheet} from 'react-native';
-import {bluePalette, grayPalette} from '../styles/colors';
-import {fontNames} from '../styles/fonts';
+import {bluePalette, grayPalette} from 'styles/colors';
+import {fontNames} from 'styles/fonts';
 
 export default class UnderlinedTextInput extends Component {
+  state: {isActive: boolean};
+  toggleActive: () => void;
+
   static propTypes = {
     label: PropTypes.string,
     onChangeText: PropTypes.func.isRequired,
     value: PropTypes.string.isRequired,
     error: PropTypes.string,
-  }
+  };
 
-  constructor(props) {
+  constructor(props: Object) {
     super(props);
 
     this.state = {isActive: false};
@@ -23,7 +27,7 @@ export default class UnderlinedTextInput extends Component {
     this.setState({isActive: !this.state.isActive});
   }
 
-  render() {
+  render(): React.Element<*> {
     const {label, error} = this.props;
 
     return (

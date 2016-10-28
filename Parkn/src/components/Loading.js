@@ -1,3 +1,5 @@
+// @flow
+
 import React, {Component} from 'react';
 import {
   View,
@@ -8,16 +10,26 @@ import {
   Easing,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {bluePalette, grayPalette} from '../styles/colors';
-import {fontNames} from '../styles/fonts';
+import {bluePalette, grayPalette} from 'styles/colors';
+import {fontNames} from 'styles/fonts';
 
 const iconColorsByType = {
   default: 'rgba(255,255,255,0.75)',
   light: bluePalette.medium,
 }
 
-export default class Loading extends Component {
-  constructor(props) {
+type Props = any;
+type State = {
+  animatedValue: Animated.Value,
+  toValue: number,
+};
+
+export default class Loading extends Component<Props, Props, State> {
+  state: State;
+  startRotation: () => void;
+  interval: number;
+
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -48,10 +60,10 @@ export default class Loading extends Component {
     this.setState({toValue: this.state.toValue + 100});
   }
 
-  render() {
+  render(): React.Element<*> {
     const rotate = this.rotateValue;
     const type = this.props.type || 'default';
-    
+
     return (
       <View style={[styles.container, styles[type]]}>
         <Animated.View
@@ -63,7 +75,7 @@ export default class Loading extends Component {
     );
   }
 
-  get rotateValue() {
+  get rotateValue(): any {
     return this.state.animatedValue.interpolate({
       inputRange: [0, 100],
       outputRange: ['0deg', '360deg']

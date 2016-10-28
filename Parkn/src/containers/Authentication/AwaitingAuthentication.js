@@ -1,3 +1,5 @@
+// @flow
+
 import React, {Component} from 'react';
 import {Animated, Easing} from 'react-native';
 import {isEmpty, keys, omit} from 'lodash/fp';
@@ -8,8 +10,28 @@ import Loading from '../../components/Loading';
 
 const omitErrorKeys = omit(['error', 'status']);
 
+type State = {
+  animatedValue: Object,
+  toValue: number,
+  isMounted: boolean,
+  isNavigating: boolean,
+}
+
+type Props = {
+  isNavigating: boolean,
+  isAuthenticated: boolean,
+  errors: Object,
+  navigator: Object,
+  isNavigating: boolean,
+  navigateTo: Function,
+  setIsNavigating: Function,
+};
+
 class AwaitingAuthenticationContainer extends Component {
-  constructor(props) {
+  state: State;
+  props: Props;
+
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -67,7 +89,7 @@ function mapStateToProps({authentication: {errors, token}, navigation: {isNaviga
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: Function): Object {
   return bindActionCreators({
     setIsNavigating,
     navigateTo,

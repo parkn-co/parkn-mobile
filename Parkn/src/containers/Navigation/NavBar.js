@@ -1,3 +1,6 @@
+// @flow
+import type {NavButtonGenerator, Route} from 'flow-declarations/navigation';
+
 import React, {Component} from 'react';
 import {
   Navigator,
@@ -12,8 +15,12 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {grayPalette} from '../../styles/colors';
 import {fontNames} from '../../styles/fonts';
 
-function navButtonGenerator(side) {
-  return (route, navigator, index, navState) => {
+const Images: Object = {
+
+};
+
+function navButtonGenerator(side: string): NavButtonGenerator {
+  return (route: Route, navigator: any, index: number, navState: Object): React.Element<*> => {
     const navButton = route.nav && route.nav[side] && route.nav[side]();
 
     if (!navButton) {
@@ -50,7 +57,7 @@ function navButtonGenerator(side) {
 const routeMapper = {
   LeftButton: navButtonGenerator('left'),
   RightButton: navButtonGenerator('right'),
-  Title: (route, navigator, index, navState) => {
+  Title: (route: Route, navigator: any, index: number, navState: any): React.Element<*> => {
     if (!route.title) {
       return <View />;
     }
@@ -75,8 +82,8 @@ const routeMapper = {
 };
 
 export default class NavBar extends Component {
-  render() {
-    const route = last(this.props.navState);
+  render(): React.Element<*> {
+    const route: Route = last(this.props.navState);
 
     return (
       <Navigator.NavigationBar {...this.props}

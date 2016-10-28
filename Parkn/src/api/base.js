@@ -1,7 +1,11 @@
+// @flow
 import _ from 'lodash';
 import {API_URL, API_VERSION} from '../config';
 
 class ApiBase {
+  apiUrl: string;
+  headers: Object;
+
   constructor() {
     this.apiUrl = `http://${API_URL}/api/${API_VERSION}/`;
 
@@ -10,7 +14,7 @@ class ApiBase {
     }
   }
 
-  get(path, queryParams = {}) {
+  get(path: string, queryParams: Object = {}) {
     let url = path;
     if (queryParams) {
       url = `${url}?${this.buildParams(queryParams)}`
@@ -19,7 +23,7 @@ class ApiBase {
     return this.request(url, {method: 'GET'});
   }
 
-  authGet(getState, path, queryParams = {}) {
+  authGet(getState: Function, path: string, queryParams: Object = {}) {
     let url = path;
     if (!_.isEmpty(queryParams)) {
       url = `${url}?${this.buildParams(queryParams)}`
@@ -33,7 +37,7 @@ class ApiBase {
     });
   }
 
-  post(path, params = {}) {
+  post(path: string, params: Object = {}) {
     const config = _.assign({}, {
       method: 'POST',
       headers: new Headers(this.headers),
@@ -43,7 +47,7 @@ class ApiBase {
     return this.request(path, config);
   }
 
-  authPost(getState, path, params = {}) {
+  authPost(getState: Function, path: string, params: Object = {}) {
     const config = _.assign({}, {
       method: 'POST',
       headers: new Headers(_.assign(this.headers, {
@@ -55,7 +59,7 @@ class ApiBase {
     return this.request(path, config);
   }
 
-  authPut(getState, path, params = {}) {
+  authPut(getState: Function, path: string, params: Object = {}) {
     const config = _.assign({}, {
       method: 'PUT',
       headers: new Headers(_.assign(this.headers, {
@@ -67,7 +71,7 @@ class ApiBase {
     return this.request(path, config);
   }
 
-  authDelete(getState, path) {
+  authDelete(getState: Function, path: string) {
     const config = _.assign({}, {
       method: 'DELETE',
       headers: new Headers(_.assign(this.headers, {
@@ -78,33 +82,31 @@ class ApiBase {
     return this.request(path, config);
   }
 
-  upload(getState, path, data, callback) {
-    return this.storage.get('token').then(token => {
-      var form = new FormData();
+  upload(getState: Function, path: string, data: any, callback: any) {
+    var form = new FormData();
 
-      _.keys(data).forEach(key => {
-        form.append(key, data[key]);
-      });
-
-      var request = new XMLHttpRequest();
-
-      request.onreadystatechange = () => {
-        if (request.readyState == XMLHttpRequest.DONE) {
-          callback(request);
-        }
-      }
-
-      request.open("POST", this.describeEndpoint(path));
-      request.setRequestHeader('Authorization', this.storage.retrieve('token'));
-      request.send(form);
+    _.keys(data).forEach(key => {
+      form.append(key, data[key]);
     });
+
+    var request = new XMLHttpRequest();
+
+    request.onreadystatechange = () => {
+      if (request.readyState == 4 /* XMLHttpRequest.DONE */) {
+        callback(request);
+      }
+    }
+
+    request.open("POST", this.describeEndpoint(path));
+    request.setRequestHeader('Authorization', this.getTokenFromState(getState));
+    request.send(form);
   }
 
-  describeEndpoint(path) {
+  describeEndpoint(path: string) {
     return `${this.apiUrl}${path}/`;
   }
 
-  request(path, config = {}) {
+  request(path: string, config: Object = {}): Promise<any> {
     return new Promise((resolve, reject) => {
       let status;
 
@@ -137,7 +139,7 @@ class ApiBase {
     });
   }
 
-  buildParams(params) {
+  buildParams(params: Object): string {
     let data = '';
 
     _.forIn(params, function(value, key) {
@@ -152,7 +154,7 @@ class ApiBase {
   }
 
   // https://github.com/form-data/form-data/blob/master/lib/form_data.js#L288
-  generateFormBoundary() {
+  generateFormBoundary(): string {
     let boundary = 'boundary=--------------------------';
 
     for (let i = 0; i < 24; i++) {
@@ -162,7 +164,7 @@ class ApiBase {
     return boundary;
   }
 
-  getTokenFromState(getState) {
+  getTokenFromState(getState: Function): string {
     const {authentication: {token}} = getState();
     return token || '';
   }

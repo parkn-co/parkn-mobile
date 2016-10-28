@@ -1,4 +1,8 @@
-import React, {Component} from 'react';
+// @flow
+import type {UserForm, Props} from 'flow-declarations/forms';
+import type {Route} from 'flow-declarations/navigation';
+
+import React, {Component, PropTypes} from 'react';
 import {startCase, assign, keys, isEmpty} from 'lodash/fp';
 import FormComponent from './FormComponent';
 import {connect} from 'react-redux';
@@ -6,10 +10,24 @@ import {bindActionCreators} from 'redux';
 import {
   setFormValues,
   authenticateWithValues
-} from '../../actions/authentication';
+} from 'actions/authentication';
 
-class FormContainer extends Component {
-  constructor(props) {
+type State = {
+  isSignUp: boolean,
+};
+
+class FormContainer extends Component<void, Props, State> {
+  props: Props;
+  state: State;
+  handleSubmit: () => void;
+  getFields: () => Array<Object>;
+
+  static propTypes = {
+    route: PropTypes.object,
+
+  };
+
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -26,7 +44,7 @@ class FormContainer extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentWillReceiveProps({errors}) {
+  componentWillReceiveProps({errors}: Props) {
     if (!isEmpty(errors)) {
 
     }
@@ -76,7 +94,7 @@ class FormContainer extends Component {
   }
 
   getFields() {
-    const fieldProps = this.props.fieldProps || {};
+    const fieldProps: Object = this.props.fieldProps || {};
 
     return this.props.fields.map(field => {
       const {value, error} = this.state[field];
@@ -103,7 +121,7 @@ class FormContainer extends Component {
         submitButton={{
           icon: isFinalForm ? 'thumb-up' : 'arrow-forward',
           text: isFinalForm ? '' : 'Next',
-          onPress: this.onSubmit
+          onPress: this.handleSubmit,
         }}
         backButton={this.props.backButton && {
           icon: 'arrow-back',

@@ -1,9 +1,21 @@
+// @flow
+import type {User} from 'flow-declarations/user';
+
 import React, {Component} from 'react';
 import {isEmpty, compose} from 'lodash/fp';
 import IsAuthenticated from './IsAuthenticated';
 
-const RequireAuthenticationHOC = ComposedComponent => class RequireAuthenticationHOCContainer extends Component {
-  constructor(props) {
+type Props = {
+  user: User,
+};
+
+const RequireAuthenticationHOC = (ComposedComponent: ReactClass<*>) => class RequireAuthenticationHOCContainer extends Component {
+  state: {
+    isNavigating: boolean,
+    isAuthenticated: boolean,
+  };
+
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -12,24 +24,24 @@ const RequireAuthenticationHOC = ComposedComponent => class RequireAuthenticatio
     };
   }
 
-  componentWillMount() {
+  componentWillMount(): void {
     if (!this.state.isAuthenticated && !this.state.isNavigating) {
       this.redirect();
     }
   }
 
-  componentWillReceiveProps({user}) {
+  componentWillReceiveProps({user}: Props): void {
     if (isEmpty(user) && this.state.isAuthenticated) {
       this.redirect();
     }
   }
 
-  redirect() {
+  redirect(): void {
     this.props.go.to({id: 'NoAuthLanding', method: 'resetTo'});
     this.setState({isNavigating: true, isAuthenticated: false});
   }
 
-  render() {
+  render(): React.Element<*> {
     return (
       <ComposedComponent {...this.props} />
     );

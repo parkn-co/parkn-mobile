@@ -1,6 +1,6 @@
 // @flow
-import {Action, AsyncAction} from './flow';
-import * as AuthApi from '../api/authentication';
+import type {Action, AsyncAction} from 'flow-declarations/redux';
+import * as AuthApi from 'api/authentication';
 
 export const AUTH_IS_FETCHING = 'AUTH_IS_FETCHING';
 export function setIsFetching(): Action {
@@ -19,7 +19,7 @@ export function setFormValues(values: Object): Action {
 
 export const AUTH_SIGN_IN = 'AUTH_SIGN_IN';
 export const AUTH_SET_ERRORS = 'AUTH_SET_ERRORS';
-export function authenticateWithValues(isSignUp: boolean, values: Object): Action {
+export function authenticateWithValues(isSignUp: boolean, values: Object) {
   return (dispatch: Function, getState: Function) => {
     dispatch({
       type: AUTH_SET_FORM_VALUES,

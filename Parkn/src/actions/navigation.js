@@ -1,5 +1,5 @@
 // @flow
-import {Action} from './flow';
+import type {Action} from 'flow-declarations/redux';
 
 export const NAV_NAVIGATE_TO = 'NAVIGATE_TO';
 export function navigateTo(route: Object): Action {
