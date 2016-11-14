@@ -1,0 +1,47 @@
+exports[`UnderlinedInput renders correctly 1`] = `
+<View>
+  <View
+    style={
+      Array [
+        Object {
+          "borderBottomColor": "rgba(255,255,255,0.5)",
+          "borderBottomWidth": 1,
+          "height": 95,
+          "marginBottom": 38,
+        },
+        Object {},
+        Object {},
+      ]
+    }>
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Object {
+          "color": "#FFFFFF",
+          "fontFamily": "OpenSans-Light",
+          "fontSize": 20,
+          "opacity": 0.75,
+        }
+      } />
+    <TextInput
+      blurOnSubmit={true}
+      onBlur={[Function]}
+      onChangeText={[Function]}
+      onFocus={[Function]}
+      selectionColor="#FFFFFF"
+      style={
+        Object {
+          "alignItems": "flex-end",
+          "color": "#FFFFFF",
+          "flex": 1,
+          "fontFamily": "OpenSans-Light",
+          "fontSize": 25,
+          "paddingBottom": 0,
+        }
+      }
+      value="mock value" />
+  </View>
+</View>
+`;
