@@ -1,4 +1,4 @@
-exports[`UnderlinedInput renders correctly 1`] = `
+exports[`UnderlinedInput using snapshots renders correctly 1`] = `
 <View>
   <View
     style={

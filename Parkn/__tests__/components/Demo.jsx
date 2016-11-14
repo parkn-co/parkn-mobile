@@ -7,7 +7,7 @@ import renderer from 'react-test-renderer';
 import Demo from '../../src/components/Demo';
 
 describe('Demo', () => {
-  it('renders correctly', () => {
+  it('renders correctly using snapshots', () => {
     const user = {
       email: 'jared@example.com',
       firstName: 'jared',

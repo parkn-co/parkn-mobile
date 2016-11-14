@@ -1,0 +1,188 @@
+exports[`FormComponent renders correctly using snapshots 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#076FEB",
+      "flex": 1,
+      "justifyContent": "center",
+      "padding": 10,
+    }
+  }>
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "left": 10,
+        "position": "absolute",
+        "right": 10,
+        "top": 30,
+      }
+    }>
+    <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel={undefined}
+      accessibilityTraits={undefined}
+      accessible={true}
+      hitSlop={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "opacity": 1,
+        }
+      }
+      testID={undefined}>
+      <Text
+        accessible={true}
+        allowFontScaling={false}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "color": "rgba(255,255,255,0.75)",
+              "fontFamily": "Material Icons",
+              "fontSize": 30,
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            undefined,
+          ]
+        }>
+        
+      </Text>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "#FFFFFF",
+            "fontFamily": "OpenSans-Light",
+            "fontSize": 20,
+            "marginLeft": 5,
+            "marginRight": 5,
+            "opacity": 0.75,
+          }
+        }>
+        back
+      </Text>
+    </View>
+    <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel={undefined}
+      accessibilityTraits={undefined}
+      accessible={true}
+      hitSlop={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "opacity": 1,
+        }
+      }
+      testID={undefined}>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "#FFFFFF",
+            "fontFamily": "OpenSans-Light",
+            "fontSize": 20,
+            "marginLeft": 5,
+            "marginRight": 5,
+            "opacity": 0.75,
+          }
+        }>
+        submit
+      </Text>
+      <Text
+        accessible={true}
+        allowFontScaling={false}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "color": "rgba(255,255,255,0.75)",
+              "fontFamily": "Material Icons",
+              "fontSize": 30,
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            undefined,
+          ]
+        }>
+        
+      </Text>
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "justifyContent": "center",
+      }
+    }>
+    <View>
+      <View
+        style={
+          Array [
+            Object {
+              "borderBottomColor": "rgba(255,255,255,0.5)",
+              "borderBottomWidth": 1,
+              "height": 95,
+              "marginBottom": 38,
+            },
+            Object {},
+            Object {},
+          ]
+        }>
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "color": "#FFFFFF",
+              "fontFamily": "OpenSans-Light",
+              "fontSize": 20,
+              "opacity": 0.75,
+            }
+          } />
+        <TextInput
+          blurOnSubmit={true}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          onFocus={[Function]}
+          selectionColor="#FFFFFF"
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "color": "#FFFFFF",
+              "flex": 1,
+              "fontFamily": "OpenSans-Light",
+              "fontSize": 25,
+              "paddingBottom": 0,
+            }
+          }
+          value="firstname" />
+      </View>
+    </View>
+  </View>
+</View>
+`;

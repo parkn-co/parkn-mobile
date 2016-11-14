@@ -1,4 +1,4 @@
-exports[`NoAuthLanding renders correctly 1`] = `
+exports[`NoAuthLanding renders correctly using snapshots 1`] = `
 <View
   style={
     Object {

@@ -1,4 +1,4 @@
-exports[`Demo renders correctly 1`] = `
+exports[`Demo renders correctly using snapshots 1`] = `
 <View
   style={
     Object {

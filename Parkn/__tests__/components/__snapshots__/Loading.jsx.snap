@@ -1,4 +1,4 @@
-exports[`Loading renders correctly 1`] = `
+exports[`Loading renders correctly using snapshots 1`] = `
 <View
   style={
     Array [
