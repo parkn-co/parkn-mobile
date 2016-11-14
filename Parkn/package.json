@@ -9,6 +9,9 @@
     "dist:beta": "export $(cat .env | xargs) && cd ios/ && fastlane ios beta",
     "test": "jest"
   },
+  "jest": {
+    "preset": "jest-react-native"
+  },
   "dependencies": {
     "lodash": "^4.16.4",
     "react": "15.3.2",
@@ -20,20 +23,19 @@
     "redux-persist": "^4.0.0-alpha6",
     "redux-thunk": "^2.1.0"
   },
-  "jest": {
-    "preset": "jest-react-native"
-  },
   "devDependencies": {
     "babel-eslint": "^7.0.0",
-    "babel-jest": "16.0.0",
-    "babel-preset-react-native": "1.9.0",
+    "babel-jest": "^17.0.0",
+    "babel-preset-react-native": "^1.9.0",
+    "enzyme": "^2.6.0",
     "eslint": "^3.7.1",
     "eslint-config-airbnb": "^12.0.0",
     "eslint-plugin-import": "^2.0.1",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.4.1",
-    "jest": "16.0.1",
-    "jest-react-native": "16.0.0",
-    "react-test-renderer": "15.3.2"
+    "jest": "^17.0.0",
+    "jest-react-native": "^17.0.0",
+    "react-dom": "^15.3.2",
+    "react-test-renderer": "^15.3.2"
   }
 }

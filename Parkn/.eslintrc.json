@@ -38,6 +38,6 @@
   "parser": "babel-eslint",
   "globals": {
     "__DEVCLIENT__": true,
-    "__DEVSERVER__": true,
+    "__DEVSERVER__": true
   }
 }
