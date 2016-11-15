@@ -9,7 +9,7 @@
     "no-unused-vars": 0,
     "no-var": 2,
     "no-class-assign": 0,
-    "object-curly-spacing": [ "error", "always" ],
+    "object-curly-spacing": [ "error", "never" ],
     "prefer-arrow-callback": 2,
     "prefer-const": 2,
     "react/jsx-closing-bracket-location": [ 2, "after-props"],
@@ -20,6 +20,7 @@
     "react/jsx-pascal-case": 2,
     "react/no-direct-mutation-state": 2,
     "react/self-closing-comp": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "semi": [ 2, "always" ],
     "space-infix-ops": 2,
     "quotes": [ 2, "single", { "avoidEscape": true, "allowTemplateLiterals": true } ]
@@ -38,6 +39,6 @@
   "parser": "babel-eslint",
   "globals": {
     "__DEVCLIENT__": true,
-    "__DEVSERVER__": true,
+    "__DEVSERVER__": true
   }
 }

@@ -1,39 +1,48 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {isEmpty, compose} from 'lodash/fp';
-import IsAuthenticated from './IsAuthenticated';
+import isAuthenticated from './isAuthenticated';
 
-const RequireAuthenticationHOC = ComposedComponent => class RequireAuthenticationHOCContainer extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isNavigating: false,
-      isAuthenticated: !isEmpty(this.props.user),
-    };
-  }
-
-  componentWillMount() {
-    if (!this.state.isAuthenticated && !this.state.isNavigating) {
-      this.redirect();
+const requireAuthenticationHOC = ComposedComponent => class
+  RequireAuthenticationHOCContainer extends Component {
+    static propTypes = {
+      user: PropTypes.object,
+      go: PropTypes.shape({
+        to: PropTypes.func,
+        back: PropTypes.func,
+      }),
     }
-  }
 
-  componentWillReceiveProps({user}) {
-    if (isEmpty(user) && this.state.isAuthenticated) {
-      this.redirect();
+    constructor(props) {
+      super(props);
+
+      this.state = {
+        isNavigating: false,
+        isAuthenticated: !isEmpty(this.props.user),
+      };
     }
-  }
 
-  redirect() {
-    this.props.go.to({id: 'NoAuthLanding', method: 'resetTo'});
-    this.setState({isNavigating: true, isAuthenticated: false});
-  }
+    componentWillMount() {
+      if (!this.state.isAuthenticated && !this.state.isNavigating) {
+        this.redirect();
+      }
+    }
 
-  render() {
-    return (
-      <ComposedComponent {...this.props} />
-    );
-  }
-}
+    componentWillReceiveProps({user}) {
+      if (isEmpty(user) && this.state.isAuthenticated) {
+        this.redirect();
+      }
+    }
 
-export default compose(IsAuthenticated, RequireAuthenticationHOC);
+    redirect() {
+      this.props.go.to({id: 'NoAuthLanding', method: 'resetTo'});
+      this.setState({isNavigating: true, isAuthenticated: false});
+    }
+
+    render() {
+      return (
+        <ComposedComponent {...this.props} />
+      );
+    }
+};
+
+export default compose(isAuthenticated, requireAuthenticationHOC);
