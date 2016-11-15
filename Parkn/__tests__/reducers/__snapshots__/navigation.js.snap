@@ -1,0 +1,37 @@
+exports[`Navigation reducer returns the correct new state when NAV_DID_NAVIGATE_TO is dispatched 1`] = `
+Object {
+  "isNavigating": false,
+  "navigateToRoute": null,
+  "route": Object {
+    "component": [Function],
+    "id": "Landing",
+  },
+}
+`;
+
+exports[`Navigation reducer returns the correct new state when NAV_NAVIGATE_TO is dispatched 1`] = `
+Object {
+  "isNavigating": false,
+  "navigateToRoute": Object {
+    "component": [Function],
+    "id": "Landing",
+  },
+  "route": null,
+}
+`;
+
+exports[`Navigation reducer returns the correct new state when NAV_SET_IS_NAVIGATING is dispatched 1`] = `
+Object {
+  "isNavigating": true,
+  "navigateToRoute": null,
+  "route": null,
+}
+`;
+
+exports[`Navigation reducer returns the correct new state when REHYDRATE is dispatched 1`] = `
+Object {
+  "isNavigating": false,
+  "navigateToRoute": null,
+  "route": null,
+}
+`;

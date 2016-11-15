@@ -1,0 +1,118 @@
+exports[`Authentication reducer returns the correct new state when AUTH_FETCH_USER is dispatched 1`] = `
+Object {
+  "errors": Object {},
+  "form": Object {
+    "confirmPassword": "",
+    "email": "",
+    "firstName": "",
+    "lastName": "",
+    "password": "",
+  },
+  "isFetching": false,
+  "token": null,
+  "user": Object {
+    "firstName": "jared",
+    "id": 1029581035,
+    "lastName": "ramirez",
+  },
+}
+`;
+
+exports[`Authentication reducer returns the correct new state when AUTH_IS_FETCHING is dispatched 1`] = `
+Object {
+  "errors": Object {},
+  "form": Object {
+    "confirmPassword": "",
+    "email": "",
+    "firstName": "",
+    "lastName": "",
+    "password": "",
+  },
+  "isFetching": true,
+  "token": null,
+  "user": Object {},
+}
+`;
+
+exports[`Authentication reducer returns the correct new state when AUTH_SET_ERRORS is dispatched 1`] = `
+Object {
+  "errors": Object {
+    "firstName": "Homie, firstname can\'t be more than 1000 characters",
+    "lastName": "You forgot to enter you last name!!!!",
+  },
+  "form": Object {
+    "confirmPassword": "",
+    "email": "",
+    "firstName": "",
+    "lastName": "",
+    "password": "",
+  },
+  "isFetching": false,
+  "token": null,
+  "user": Object {},
+}
+`;
+
+exports[`Authentication reducer returns the correct new state when AUTH_SET_FORM_VALUES is dispatched 1`] = `
+Object {
+  "errors": Object {},
+  "form": Object {
+    "confirmPassword": "foo",
+    "email": "jared@example.com",
+    "firstName": "jared",
+    "lastName": "ramirez",
+    "password": "foo",
+  },
+  "isFetching": false,
+  "token": null,
+  "user": Object {},
+}
+`;
+
+exports[`Authentication reducer returns the correct new state when AUTH_SIGN_IN is dispatched 1`] = `
+Object {
+  "errors": Object {},
+  "form": Object {
+    "confirmPassword": "",
+    "email": "",
+    "firstName": "",
+    "lastName": "",
+    "password": "",
+  },
+  "isFetching": false,
+  "token": "WOOT_THIS_TOKEN_GIVES_YOU_ALLLLLLL_ACCESS_;)",
+  "user": Object {},
+}
+`;
+
+exports[`Authentication reducer returns the correct new state when AUTH_SIGN_OUT is dispatched 1`] = `
+Object {
+  "errors": Object {},
+  "form": Object {
+    "confirmPassword": "",
+    "email": "",
+    "firstName": "",
+    "lastName": "",
+    "password": "",
+  },
+  "isFetching": false,
+  "token": null,
+  "user": Object {},
+}
+`;
+
+exports[`Authentication reducer returns the correct new state when REHYDRATE is dispatched 1`] = `
+Object {
+  "errors": Object {},
+  "form": Object {
+    "confirmPassword": "",
+    "email": "",
+    "firstName": "",
+    "lastName": "",
+    "password": "",
+  },
+  "isFetching": false,
+  "token": "this_is_a_rad_token",
+  "user": Object {},
+}
+`;
