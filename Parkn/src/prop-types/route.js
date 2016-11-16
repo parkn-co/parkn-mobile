@@ -1,6 +1,6 @@
 import {PropTypes} from 'react';
 
-export const routeProps = PropTypes.shape({
-  id: PropTypes.string.isRequired,
-  component: PropTypes.node.isRequired,
+export const routeProp = PropTypes.shape({
+  id: PropTypes.string,
+  component: PropTypes.component,
 });

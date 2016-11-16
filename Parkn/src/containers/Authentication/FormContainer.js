@@ -10,7 +10,7 @@ import {
   setFormValues,
   authenticateWithValues,
 } from 'actions/authentication';
-import {routeProps} from 'prop-types/route';
+import {routeProp} from 'prop-types/route';
 import FormComponent from './FormComponent';
 
 type State = {
@@ -23,7 +23,12 @@ class FormContainer extends Component {
   handleSubmit: () => void;
   getFields: () => Array<Object>;
 
-  static propTypes = routeProps;
+  static propTypes = {
+    route: routeProp,
+    isRequired: PropTypes.bool,
+    setFormValues: PropTypes.func.isRequired,
+    authenticateWithValues: PropTypes.func.isRequired,
+  };
 
   constructor(props: Props) {
     super(props);

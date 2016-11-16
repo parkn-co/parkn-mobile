@@ -16,6 +16,7 @@ export type Field = {
 
 export type Props = {
   isFinalForm?: boolean,
+  isRequired?: boolean,
   nextForm?: string,
   route: Route,
   fields: Array<string>,

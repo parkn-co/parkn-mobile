@@ -6,7 +6,6 @@ import {View, StatusBar, Navigator, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {values} from 'lodash/fp';
-import NavBar from './NavBar';
 import {didNavigateTo, navigateTo, setIsNavigating} from '../../actions/navigation';
 
 class Navigation extends Component {
@@ -16,9 +15,13 @@ class Navigation extends Component {
   };
   renderScene: () => React.Element<*>;
   onWillFocus: () => void;
+  navigator: Object;
 
   static propTypes = {
-    routes: PropTypes.object.isRequired,
+    routes: PropTypes.shape({}),
+    navigateTo: PropTypes.func.isRequired,
+    setIsNavigating: PropTypes.func.isRequired,
+    didNavigateTo: PropTypes.func.isRequired,
   }
 
   constructor(props: Object) {
@@ -37,9 +40,9 @@ class Navigation extends Component {
     if (navigateToRoute && !this.state.isNavigating) {
       this.props.setIsNavigating(true);
 
-      let method = navigateToRoute.method || 'push';
+      const method = navigateToRoute.method || 'push';
 
-      this.refs.navigator[method](this.routes[navigateToRoute.id]);
+      this.navigator[method](this.routes[navigateToRoute.id]);
     }
   }
 
@@ -48,7 +51,7 @@ class Navigation extends Component {
 
     return (
       <View style={styles.sceneWrapper}>
-        <StatusBar barStyle={route.statusBarStyle || "light-content"} />
+        <StatusBar barStyle={route.statusBarStyle || 'light-content'} />
         <RouteComponent
           go={{
             to: this.props.navigateTo,
@@ -67,20 +70,19 @@ class Navigation extends Component {
     this.setState({isNavigating: false});
   }
 
+  get routes(): Object {
+    return this.props.routes;
+  }
+
   render(): React.Element<*> {
     return (
       <Navigator
-        ref="navigator"
+        ref={r => this.navigator = r}
         initialRoute={this.state.initialRoute}
         renderScene={this.renderScene}
         onWillFocus={this.onWillFocus}
-        navigationBar={<NavBar />}
       />
     );
-  }
-
-  get routes(): Object {
-    return this.props.routes;
   }
 }
 
