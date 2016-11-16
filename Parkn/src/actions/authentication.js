@@ -23,13 +23,13 @@ export function authenticateWithValues(isSignUp: boolean, values: Object) {
   return (dispatch: Function, getState: Function) => {
     dispatch({
       type: AUTH_SET_FORM_VALUES,
-      payload: values
+      payload: values,
     });
 
     dispatch(setIsFetching());
 
     const {
-      authentication: {form}
+      authentication: {form},
     } = getState();
 
     let method = 'signIn';
@@ -42,21 +42,21 @@ export function authenticateWithValues(isSignUp: boolean, values: Object) {
       type: AUTH_SIGN_IN,
       payload: token,
     }))
-    .catch(err => {
+    .catch((err) => {
       let payload = err;
 
       if (err.status === 409) {
-        payload = {...err, email: err.error};
+        payload = {error: err, email: err.error};
       } else if (err.status === 404 || err.status === 500) {
-        payload = {...err, email: 'Incorrect email or password'};
+        payload = {error: err, email: 'Incorrect email or password'};
       }
 
       dispatch({
         type: AUTH_SET_ERRORS,
         payload,
-      })
+      });
     });
-  }
+  };
 }
 
 export const AUTH_SIGN_OUT = 'AUTH_SIGN_OUT';
@@ -70,7 +70,7 @@ export function signOut(): AsyncAction {
     .catch(err => dispatch({
       type: AUTH_SIGN_OUT,
     }));
-  }
+  };
 }
 
 export const AUTH_FETCH_USER = 'AUTH_FETCH_USER';
@@ -87,5 +87,5 @@ export function fetchUser(): AsyncAction {
       type: AUTH_SET_ERRORS,
       payload: err,
     }));
-  }
+  };
 }

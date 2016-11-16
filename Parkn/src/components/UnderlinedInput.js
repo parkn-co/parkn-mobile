@@ -1,7 +1,7 @@
 // @flow
 import React, {Component, PropTypes} from 'react';
 import {View, TextInput, Text, StyleSheet} from 'react-native';
-import {bluePalette, grayPalette} from 'styles/colors';
+import {bluePalette, grayPalette, errorTextColors} from 'styles/colors';
 import {fontNames} from 'styles/fonts';
 
 export default class UnderlinedTextInput extends Component {
@@ -32,16 +32,18 @@ export default class UnderlinedTextInput extends Component {
 
     return (
       <View>
-        <View style={[
-          styles.container,
-          this.state.isActive ? styles.active : {},
-          this.props.error ? styles.withError : {},
-        ]}>
+        <View
+          style={[
+            styles.container,
+            this.state.isActive ? styles.active : {},
+            this.props.error ? styles.withError : {},
+          ]}
+        >
           <Text style={styles.label}>{label}</Text>
 
           <TextInput
             style={styles.input}
-            blurOnSubmit={true}
+            blurOnSubmit
             onFocus={this.toggleActive}
             onBlur={this.toggleActive}
             selectionColor={grayPalette.white}
@@ -81,13 +83,13 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
   },
   error: {
-    color: grayPalette.black,
-    opacity: 0.75,
+    color: errorTextColors.orange,
+    opacity: 1,
     fontFamily: fontNames.light,
     fontSize: 17,
     marginBottom: 10,
   },
   active: {
     borderBottomColor: grayPalette.white,
-  }
+  },
 });

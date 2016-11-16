@@ -27,6 +27,7 @@ export default class Loading extends Component {
   state: State;
   startRotation: () => void;
   interval: number;
+  animatedValue: any;
 
   static animatedValue = new Animated.Value(0);
   static toValue = 100;
@@ -37,6 +38,8 @@ export default class Loading extends Component {
     this.state = {
       toValue: 100,
     };
+
+    this.animatedValue = Loading.animatedValue;
 
     this.startRotation = this.startRotation.bind(this);
   }
@@ -61,8 +64,15 @@ export default class Loading extends Component {
     this.setState({toValue: Loading.toValue + 100});
   }
 
+  getRotateValue(): any {
+    return this.animatedValue.interpolate({
+      inputRange: [0, 100],
+      outputRange: ['0deg', '360deg'],
+    });
+  }
+
   render(): React.Element<*> {
-    const rotate = getRotateValue();
+    const rotate = this.getRotateValue();
     const type = this.props.type || 'default';
 
     return (
@@ -75,13 +85,6 @@ export default class Loading extends Component {
       </View>
     );
   }
-}
-
-function getRotateValue(): any {
-  return Loading.animatedValue.interpolate({
-    inputRange: [0, 100],
-    outputRange: ['0deg', '360deg'],
-  });
 }
 
 const styles = StyleSheet.create({
