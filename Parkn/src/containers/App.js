@@ -1,9 +1,9 @@
-// @flow
 
-import React, {Component} from 'react';
+// @flow
+import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import Navigator from './Navigation';
-import IsAuthenticated from './hoc/IsAuthenticated';
+import isAuthenticated from './hoc/isAuthenticated';
 import getRoutes from '../routes';
 
 type ReduxState = {
@@ -14,10 +14,14 @@ const Parkn = ({isLoggedIn}: ReduxState): React.Element<*> => (
   <Navigator routes={getRoutes(isLoggedIn)} />
 );
 
+Parkn.propTypes = {
+  isLoggedIn: PropTypes.bool,
+};
+
 function mapStateToProps({authentication: {token}}: {authentication: {token: string}}): ReduxState {
   return {
     isLoggedIn: Boolean(token),
   };
 }
 
-export default connect(mapStateToProps, null)(IsAuthenticated(Parkn));
+export default connect(mapStateToProps, null)(isAuthenticated(Parkn));

@@ -3,8 +3,11 @@ import React, {Component} from 'react';
 import {isEmpty} from 'lodash/fp';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {setIsNavigating, navigateTo} from 'actions/navigation';
-import {fetchUser} from 'actions/authentication';
+import {
+  setIsNavigating as setIsNavigatingAction,
+  navigateTo as navigateToAction,
+} from 'actions/navigation';
+import {fetchUser as fetchUserAction} from 'actions/authentication';
 import Loading from 'components/Loading';
 
 type Props = {
@@ -18,14 +21,6 @@ type Props = {
 
 const AuthenticatedHOC = (ComposedComponent: ReactClass<*>) => {
   class AuthenticatedHOCContainer extends Component {
-    state: {
-      isAuthenticated: boolean,
-      isFetching: boolean,
-      isNavigating: boolean,
-      didCheck: boolean,
-    };
-    props: Props
-
     constructor(props: Props) {
       super(props);
 
@@ -37,6 +32,13 @@ const AuthenticatedHOC = (ComposedComponent: ReactClass<*>) => {
       };
     }
 
+    state: {
+      isAuthenticated: boolean,
+      isFetching: boolean,
+      isNavigating: boolean,
+      didCheck: boolean,
+    };
+
     componentWillMount() {
       if (this.props.isAuthenticated) {
         this.setState({didCheck: true, isFetching: true});
@@ -45,15 +47,38 @@ const AuthenticatedHOC = (ComposedComponent: ReactClass<*>) => {
       this.checkAuthentication(this.props);
     }
 
-    componentWillReceiveProps({isAuthenticated, isFetching, isRehydrated, fetchUser, hasToken, isNavigating}: Props) {
-      this.checkAuthentication({isAuthenticated, isFetching, isRehydrated, fetchUser, hasToken, isNavigating});
+    componentWillReceiveProps({
+      isAuthenticated,
+      isFetching,
+      isRehydrated,
+      fetchUser,
+      hasToken,
+      isNavigating,
+    }: Props) {
+      this.checkAuthentication({
+        isAuthenticated,
+        isFetching,
+        isRehydrated,
+        fetchUser,
+        hasToken,
+        isNavigating,
+      });
 
       if (!isFetching && this.state.isFetching) {
         this.setState({isFetching});
       }
     }
 
-    checkAuthentication({fetchUser, isAuthenticated, isFetching, isRehydrated, hasToken, isNavigating}: Props) {
+    props: Props
+
+    checkAuthentication({
+      fetchUser,
+      isAuthenticated,
+      isFetching,
+      isRehydrated,
+      hasToken,
+      isNavigating,
+    }: Props) {
       if (!this.state.isFetching && isRehydrated && !this.state.didCheck && hasToken) {
         this.setState({isFetching: true, didCheck: true});
 
@@ -65,7 +90,7 @@ const AuthenticatedHOC = (ComposedComponent: ReactClass<*>) => {
 
     render() {
       if (this.state.isFetching || !this.props.isRehydrated) {
-        return <Loading />
+        return <Loading />;
       }
 
       return <ComposedComponent {...this.props} />;
@@ -75,7 +100,7 @@ const AuthenticatedHOC = (ComposedComponent: ReactClass<*>) => {
   function mapStateToProps({
     isRehydrated,
     authentication: {user, token, isFetching},
-    navigation: {isNavigating}
+    navigation: {isNavigating},
   }) {
     return {
       isAuthenticated: Boolean(token) && !isEmpty(user),
@@ -89,13 +114,13 @@ const AuthenticatedHOC = (ComposedComponent: ReactClass<*>) => {
 
   function mapDispatchToProps(dispatch: Function): any {
     return bindActionCreators({
-      setIsNavigating,
-      navigateTo,
-      fetchUser,
+      setIsNavigating: setIsNavigatingAction,
+      navigateTo: navigateToAction,
+      fetchUser: fetchUserAction,
     }, dispatch);
   }
 
   return connect(mapStateToProps, mapDispatchToProps)(AuthenticatedHOCContainer);
-}
+};
 
 export default AuthenticatedHOC;

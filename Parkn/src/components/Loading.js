@@ -16,7 +16,7 @@ import {fontNames} from 'styles/fonts';
 const iconColorsByType = {
   default: 'rgba(255,255,255,0.75)',
   light: bluePalette.medium,
-}
+};
 
 type Props = any;
 type State = {
@@ -29,11 +29,14 @@ export default class Loading extends Component<Props, Props, State> {
   startRotation: () => void;
   interval: number;
 
+  static animatedValue = new Animated.Value(0);
+  static toValue = 100;
+
   constructor(props: Props) {
     super(props);
 
     this.state = {
-      animatedValue: new Animated.Value(0),
+      // animatedValue: new Animated.Value(0),
       toValue: 100,
     };
 
@@ -51,17 +54,24 @@ export default class Loading extends Component<Props, Props, State> {
   }
 
   startRotation() {
-    Animated.timing(this.state.animatedValue, {
-      toValue: this.state.toValue,
+    Animated.timing(Loading.animatedValue, {
+      toValue: Loading.toValue,
       duration: 3000,
-      easing: Easing.linear
+      easing: Easing.linear,
     }).start();
 
-    this.setState({toValue: this.state.toValue + 100});
+    this.setState({toValue: Loading.toValue + 100});
+  }
+
+  getRotateValue(): any {
+    return Loading.animatedValue.interpolate({
+      inputRange: [0, 100],
+      outputRange: ['0deg', '360deg'],
+    });
   }
 
   render(): React.Element<*> {
-    const rotate = this.rotateValue;
+    const rotate = this.getRotateValue();
     const type = this.props.type || 'default';
 
     return (
@@ -73,13 +83,6 @@ export default class Loading extends Component<Props, Props, State> {
         </Animated.View>
       </View>
     );
-  }
-
-  get rotateValue(): any {
-    return this.state.animatedValue.interpolate({
-      inputRange: [0, 100],
-      outputRange: ['0deg', '360deg']
-    });
   }
 }
 
@@ -95,5 +98,5 @@ const styles = StyleSheet.create({
   },
   light: {
     backgroundColor: '#F5FCFF',
-  }
+  },
 });

@@ -2,14 +2,14 @@
 import type {Props, Field} from 'flow-declarations/forms';
 
 import React from 'react';
+import regex from 'utilities/regex';
 import FormContainer from './FormContainer';
-import regex from '../../utilities/regex';
 
 export const NamesForm = (props: Object): React.Element<*> => (
   <FormContainer
     {...props}
     fields={['firstName', 'lastName']}
-    backButton={true}
+    backButton
     nextForm={'SignUpEmail'}
   />
 );
@@ -32,7 +32,7 @@ export const EmailForm = (props: Object) => (
       email: {autoCapitalize: 'none'},
     }}
     validate={validateEmail}
-    backButton={true}
+    backButton
     nextForm={props.route.isSignUp ? 'SignUpPassword' : 'SignInPassword'}
   />
 );
@@ -56,7 +56,7 @@ export const PasswordForm = (props: Object) => (
       confirmPassword: {secureTextEntry: true},
     }}
     validate={props.route.isSignUp ? validatePasswords : null}
-    backButton={true}
-    isFinalForm={true}
+    backButton
+    isFinalForm
   />
 );
