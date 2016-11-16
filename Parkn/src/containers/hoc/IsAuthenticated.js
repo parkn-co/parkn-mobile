@@ -19,8 +19,18 @@ type Props = {
   hasToken?: boolean,
 };
 
+type State = {
+  isAuthenticated: boolean,
+  isFetching: boolean,
+  isNavigating: boolean,
+  didCheck: boolean,
+};
+
 const AuthenticatedHOC = (ComposedComponent: ReactClass<*>) => {
   class AuthenticatedHOCContainer extends Component {
+    state: State;
+    props: Props;
+
     constructor(props: Props) {
       super(props);
 
@@ -31,13 +41,6 @@ const AuthenticatedHOC = (ComposedComponent: ReactClass<*>) => {
         didCheck: false,
       };
     }
-
-    state: {
-      isAuthenticated: boolean,
-      isFetching: boolean,
-      isNavigating: boolean,
-      didCheck: boolean,
-    };
 
     componentWillMount() {
       if (this.props.isAuthenticated) {
@@ -68,8 +71,6 @@ const AuthenticatedHOC = (ComposedComponent: ReactClass<*>) => {
         this.setState({isFetching});
       }
     }
-
-    props: Props
 
     checkAuthentication({
       fetchUser,

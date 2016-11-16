@@ -4,28 +4,26 @@ import type {Route} from 'flow-declarations/navigation';
 
 import React, {Component, PropTypes} from 'react';
 import {startCase, assign, keys, isEmpty} from 'lodash/fp';
-import FormComponent from './FormComponent';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {
   setFormValues,
-  authenticateWithValues
+  authenticateWithValues,
 } from 'actions/authentication';
+import {routeProps} from 'prop-types/route';
+import FormComponent from './FormComponent';
 
 type State = {
   isSignUp: boolean,
 };
 
-class FormContainer extends Component<void, Props, State> {
+class FormContainer extends Component {
   props: Props;
   state: State;
   handleSubmit: () => void;
   getFields: () => Array<Object>;
 
-  static propTypes = {
-    route: PropTypes.object,
-
-  };
+  static propTypes = routeProps;
 
   constructor(props: Props) {
     super(props);
@@ -34,7 +32,7 @@ class FormContainer extends Component<void, Props, State> {
       isSignUp: Boolean(props.route.isSignUp),
     };
 
-    props.fields.forEach(field => {
+    props.fields.forEach((field) => {
       this.state[field] = {
         value: props[field],
         error: null,
@@ -44,16 +42,10 @@ class FormContainer extends Component<void, Props, State> {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentWillReceiveProps({errors}: Props) {
-    if (!isEmpty(errors)) {
-
-    }
-  }
-
-  handleSubmit() {
+  handleSubmit(): void {
     const errors = this.props.validate ? this.props.validate(this.state) : {};
 
-    this.props.fields.forEach(field => {
+    this.props.fields.forEach((field) => {
       if (this.state[field].value === '') {
         errors[field] = `${startCase(field)} is required`;
       }
@@ -62,19 +54,21 @@ class FormContainer extends Component<void, Props, State> {
     if (!isEmpty(errors)) {
       const newState = {};
 
-      keys(errors).forEach(key => {
+      keys(errors).forEach((key) => {
         newState[key] = {
           ...this.state[key],
           error: errors[key],
         };
       });
 
-      return this.setState(newState);
+      this.setState(newState);
+
+      return;
     }
 
     const formValues = {};
 
-    this.props.fields.forEach(field => {
+    this.props.fields.forEach((field) => {
       formValues[field] = this.state[field].value;
     });
 
@@ -89,14 +83,14 @@ class FormContainer extends Component<void, Props, State> {
 
   hanldeInputChange(field) {
     return text => this.setState({
-      [field]: {value: text, error: null}
+      [field]: {value: text, error: null},
     });
   }
 
   getFields() {
     const fieldProps: Object = this.props.fieldProps || {};
 
-    return this.props.fields.map(field => {
+    return this.props.fields.map((field) => {
       const {value, error} = this.state[field];
       const resultError = this.props.errors[field];
 
@@ -106,7 +100,7 @@ class FormContainer extends Component<void, Props, State> {
         label: startCase(field),
         onChangeText: this.hanldeInputChange(field),
         autoCorrect: false,
-        ...(fieldProps[field] || {})
+        ...(fieldProps[field] || {}),
       };
     });
   }

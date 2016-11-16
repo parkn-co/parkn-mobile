@@ -20,11 +20,10 @@ const iconColorsByType = {
 
 type Props = any;
 type State = {
-  animatedValue: Animated.Value,
   toValue: number,
 };
 
-export default class Loading extends Component<Props, Props, State> {
+export default class Loading extends Component {
   state: State;
   startRotation: () => void;
   interval: number;
@@ -36,7 +35,6 @@ export default class Loading extends Component<Props, Props, State> {
     super(props);
 
     this.state = {
-      // animatedValue: new Animated.Value(0),
       toValue: 100,
     };
 
@@ -63,15 +61,8 @@ export default class Loading extends Component<Props, Props, State> {
     this.setState({toValue: Loading.toValue + 100});
   }
 
-  getRotateValue(): any {
-    return Loading.animatedValue.interpolate({
-      inputRange: [0, 100],
-      outputRange: ['0deg', '360deg'],
-    });
-  }
-
   render(): React.Element<*> {
-    const rotate = this.getRotateValue();
+    const rotate = getRotateValue();
     const type = this.props.type || 'default';
 
     return (
@@ -84,6 +75,13 @@ export default class Loading extends Component<Props, Props, State> {
       </View>
     );
   }
+}
+
+function getRotateValue(): any {
+  return Loading.animatedValue.interpolate({
+    inputRange: [0, 100],
+    outputRange: ['0deg', '360deg'],
+  });
 }
 
 const styles = StyleSheet.create({
