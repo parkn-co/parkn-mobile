@@ -1,3 +1,18 @@
+exports[`Authentication actions return the correction action when setFormValues 1`] = `
+Object {
+  "payload": Object {
+    "value": "value",
+  },
+  "type": "AUTH_SET_FORM_VALUES",
+}
+`;
+
+exports[`Authentication actions return the correction action when setIsFetching 1`] = `
+Object {
+  "type": "AUTH_IS_FETCHING",
+}
+`;
+
 exports[`Navigation actions return the correction action when setFormValues 1`] = `
 Object {
   "payload": Object {
