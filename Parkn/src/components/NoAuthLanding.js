@@ -1,9 +1,11 @@
+// @flow
+
 import React from 'react';
 import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
-import {bluePalette, grayPalette} from '../styles/colors';
-import {fontNames} from '../styles/fonts';
+import {bluePalette, grayPalette} from 'styles/colors';
+import {fontNames} from 'styles/fonts';
 
-const NoAuthLanding = ({go}) => (
+const NoAuthLanding = ({go}: {go: Function}): React.Element<*> => (
   <View style={styles.container}>
     <View style={styles.sectionWrapper}>
       <Text style={styles.logo}>{'Parkn'}</Text>

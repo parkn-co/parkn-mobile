@@ -1,3 +1,5 @@
+// @flow
+
 import {combineReducers} from 'redux';
 import navigation from './navigation';
 import authentication from './authentication';

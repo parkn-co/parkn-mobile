@@ -1,5 +1,8 @@
+// @flow
+import type {Action} from 'flow-declarations/redux';
+
 export const NAV_NAVIGATE_TO = 'NAVIGATE_TO';
-export function navigateTo(route) {
+export function navigateTo(route: Object): Action {
   return {
     type: NAV_NAVIGATE_TO,
     payload: route,
@@ -7,7 +10,7 @@ export function navigateTo(route) {
 }
 
 export const NAV_DID_NAVIGATE_TO = 'DID_NAVIGATE_TO';
-export function didNavigateTo(route) {
+export function didNavigateTo(route: Object): Action {
   return {
     type: NAV_DID_NAVIGATE_TO,
     payload: route,
@@ -15,7 +18,7 @@ export function didNavigateTo(route) {
 }
 
 export const NAV_SET_IS_NAVIGATING = 'NAV_SET_IS_NAVIGATING';
-export function setIsNavigating(isNavigating) {
+export function setIsNavigating(isNavigating: Boolean): Action {
   return {
     type: NAV_SET_IS_NAVIGATING,
     payload: isNavigating,

@@ -15,3 +15,7 @@ export const grayPalette = {
   dark: '#3f3f40',
   black: '#000000',
 };
+
+export const errorTextColors = {
+  orange: 'rgb(244, 206, 66)',
+};

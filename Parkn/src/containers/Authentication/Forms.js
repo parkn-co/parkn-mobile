@@ -1,17 +1,20 @@
-import React from 'react';
-import FormContainer from './FormContainer';
-import regex from '../../utilities/regex';
+// @flow
+import type {Props, Field} from 'flow-declarations/forms';
 
-export const NamesForm = props => (
+import React from 'react';
+import regex from 'utilities/regex';
+import FormContainer from './FormContainer';
+
+export const NamesForm = (props: Object): React.Element<*> => (
   <FormContainer
     {...props}
     fields={['firstName', 'lastName']}
-    backButton={true}
+    backButton
     nextForm={'SignUpEmail'}
   />
 );
 
-function validateEmail({email}) {
+function validateEmail({email}: {email: Field}) {
   const errors = {};
 
   if (!regex.email.test(email.value)) {
@@ -21,7 +24,7 @@ function validateEmail({email}) {
   return errors;
 }
 
-export const EmailForm = props => (
+export const EmailForm = (props: Object) => (
   <FormContainer
     {...props}
     fields={['email']}
@@ -29,12 +32,12 @@ export const EmailForm = props => (
       email: {autoCapitalize: 'none'},
     }}
     validate={validateEmail}
-    backButton={true}
+    backButton
     nextForm={props.route.isSignUp ? 'SignUpPassword' : 'SignInPassword'}
   />
 );
 
-function validatePasswords({password, confirmPassword}) {
+function validatePasswords({password, confirmPassword}: {password: Field, confirmPassword: Field}) {
   const errors = {};
 
   if (password.value !== confirmPassword.value) {
@@ -44,7 +47,7 @@ function validatePasswords({password, confirmPassword}) {
   return errors;
 }
 
-export const PasswordForm = props => (
+export const PasswordForm = (props: Object) => (
   <FormContainer
     {...props}
     fields={['password'].concat(props.route.isSignUp ? 'confirmPassword' : [])}
@@ -53,7 +56,7 @@ export const PasswordForm = props => (
       confirmPassword: {secureTextEntry: true},
     }}
     validate={props.route.isSignUp ? validatePasswords : null}
-    backButton={true}
-    isFinalForm={true}
+    backButton
+    isFinalForm
   />
 );

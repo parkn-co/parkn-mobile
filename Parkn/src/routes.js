@@ -1,9 +1,9 @@
+import {assign} from 'lodash/fp';
 import Demo from './containers/Demo';
 import NoAuthLanding from './components/NoAuthLanding';
 import {NamesForm, EmailForm, PasswordForm} from './containers/Authentication/Forms';
 import AwaitingAuthentication from './containers/Authentication/AwaitingAuthentication';
-import RequireAuthenticationHOC from './containers/hoc/RequireAuthentication';
-import {assign} from 'lodash/fp';
+import requireAuthenticationHOC from './containers/hoc/requireAuthentication';
 
 export default function getRoutes(isLoggedIn) {
   return {
@@ -14,7 +14,7 @@ export default function getRoutes(isLoggedIn) {
     },
     Landing: {
       id: 'Landing',
-      component: RequireAuthenticationHOC(Demo),
+      component: requireAuthenticationHOC(Demo),
       isInitial: isLoggedIn,
     },
     SignUp: {

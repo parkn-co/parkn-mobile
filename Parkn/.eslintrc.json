@@ -9,10 +9,10 @@
     "no-unused-vars": 0,
     "no-var": 2,
     "no-class-assign": 0,
-    "object-curly-spacing": [ "error", "always" ],
+    "object-curly-spacing": [ "error", "never" ],
     "prefer-arrow-callback": 2,
     "prefer-const": 2,
-    "react/jsx-closing-bracket-location": [ 2, "after-props"],
+    "react/jsx-closing-bracket-location": [ 2, "tag-aligned"],
     "react/jsx-curly-spacing": [ 2, "never" ],
     "react/jsx-indent": [ 2, 2 ],
     "react/jsx-indent-props": [ 2, 2 ],
@@ -20,24 +20,51 @@
     "react/jsx-pascal-case": 2,
     "react/no-direct-mutation-state": 2,
     "react/self-closing-comp": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/sort-comp": [1, {
+      "order": [
+        "type-annotations",
+        "static-methods",
+        "lifecycle",
+        "everything-else",
+        "render"
+      ]
+    }],
     "semi": [ 2, "always" ],
     "space-infix-ops": 2,
-    "quotes": [ 2, "single", { "avoidEscape": true, "allowTemplateLiterals": true } ]
+    "quotes": [ 2, "single", { "avoidEscape": true, "allowTemplateLiterals": true } ],
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": false, "optionalDependencies": true, "peerDependencies": false}]
   },
   "env": {
     "es6": true,
     "browser": true,
     "node": true
   },
-  "extends": "eslint-config-airbnb",
+  "extends": [
+    "eslint-config-airbnb",
+    "plugin:flowtype/recommended"
+  ],
   "ecmaFeatures": {
     "jsx": true,
     "experimentalObjectRestSpread": true
   },
-  "plugins": [ "react" ],
+  "plugins": [
+    "react",
+    "flowtype"
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "moduleDirectory": [
+          "./node_modules",
+          "./src"
+        ]
+      }
+    }
+  },
   "parser": "babel-eslint",
   "globals": {
     "__DEVCLIENT__": true,
-    "__DEVSERVER__": true,
+    "__DEVSERVER__": true
   }
 }

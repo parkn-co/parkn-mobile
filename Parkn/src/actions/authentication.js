@@ -1,14 +1,16 @@
-import * as AuthApi from '../api/authentication';
+// @flow
+import type {Action, AsyncAction} from 'flow-declarations/redux';
+import * as AuthApi from 'api/authentication';
 
 export const AUTH_IS_FETCHING = 'AUTH_IS_FETCHING';
-export function setIsFetching() {
+export function setIsFetching(): Action {
   return {
     type: AUTH_IS_FETCHING,
   };
 }
 
 export const AUTH_SET_FORM_VALUES = 'AUTH_SET_FORM_VALUES';
-export function setFormValues(values) {
+export function setFormValues(values: Object): Action {
   return {
     type: AUTH_SET_FORM_VALUES,
     payload: values,
@@ -17,17 +19,17 @@ export function setFormValues(values) {
 
 export const AUTH_SIGN_IN = 'AUTH_SIGN_IN';
 export const AUTH_SET_ERRORS = 'AUTH_SET_ERRORS';
-export function authenticateWithValues(isSignUp, values) {
-  return (dispatch, getState) => {
+export function authenticateWithValues(isSignUp: boolean, values: Object) {
+  return (dispatch: Function, getState: Function) => {
     dispatch({
       type: AUTH_SET_FORM_VALUES,
-      payload: values
+      payload: values,
     });
 
     dispatch(setIsFetching());
 
     const {
-      authentication: {form}
+      authentication: {form},
     } = getState();
 
     let method = 'signIn';
@@ -40,25 +42,25 @@ export function authenticateWithValues(isSignUp, values) {
       type: AUTH_SIGN_IN,
       payload: token,
     }))
-    .catch(err => {
+    .catch((err) => {
       let payload = err;
 
       if (err.status === 409) {
-        payload = {...err, email: err.error};
+        payload = {error: err, email: err.error};
       } else if (err.status === 404 || err.status === 500) {
-        payload = {...err, email: 'Incorrect email or password'};
+        payload = {error: err, email: 'Incorrect email or password'};
       }
 
       dispatch({
         type: AUTH_SET_ERRORS,
         payload,
-      })
+      });
     });
-  }
+  };
 }
 
 export const AUTH_SIGN_OUT = 'AUTH_SIGN_OUT';
-export function signOut() {
+export function signOut(): AsyncAction {
   return (dispatch, getState) => {
     // Get rid of token and user not matter what
     AuthApi.signOut(getState)
@@ -68,12 +70,12 @@ export function signOut() {
     .catch(err => dispatch({
       type: AUTH_SIGN_OUT,
     }));
-  }
+  };
 }
 
 export const AUTH_FETCH_USER = 'AUTH_FETCH_USER';
-export function fetchUser() {
-  return (dispatch, getState) => {
+export function fetchUser(): AsyncAction {
+  return (dispatch: (action: Action) => void, getState: () => void) => {
     dispatch(setIsFetching());
 
     AuthApi.fetchUser(getState)
@@ -85,5 +87,5 @@ export function fetchUser() {
       type: AUTH_SET_ERRORS,
       payload: err,
     }));
-  }
+  };
 }

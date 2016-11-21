@@ -1,22 +1,43 @@
-import React, {Component} from 'react';
+// @flow
+import type {UserForm, Props} from 'flow-declarations/forms';
+import type {Route} from 'flow-declarations/navigation';
+
+import React, {Component, PropTypes} from 'react';
 import {startCase, assign, keys, isEmpty} from 'lodash/fp';
-import FormComponent from './FormComponent';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {
   setFormValues,
-  authenticateWithValues
-} from '../../actions/authentication';
+  authenticateWithValues,
+} from 'actions/authentication';
+import {routeProp} from 'prop-types/route';
+import FormComponent from './FormComponent';
+
+type State = {
+  isSignUp: boolean,
+};
 
 class FormContainer extends Component {
-  constructor(props) {
+  props: Props;
+  state: State;
+  handleSubmit: () => void;
+  getFields: () => Array<Object>;
+
+  static propTypes = {
+    route: routeProp,
+    isRequired: PropTypes.bool,
+    setFormValues: PropTypes.func.isRequired,
+    authenticateWithValues: PropTypes.func.isRequired,
+  };
+
+  constructor(props: Props) {
     super(props);
 
     this.state = {
       isSignUp: Boolean(props.route.isSignUp),
     };
 
-    props.fields.forEach(field => {
+    props.fields.forEach((field) => {
       this.state[field] = {
         value: props[field],
         error: null,
@@ -26,16 +47,10 @@ class FormContainer extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentWillReceiveProps({errors}) {
-    if (!isEmpty(errors)) {
-
-    }
-  }
-
-  handleSubmit() {
+  handleSubmit(): void {
     const errors = this.props.validate ? this.props.validate(this.state) : {};
 
-    this.props.fields.forEach(field => {
+    this.props.fields.forEach((field) => {
       if (this.state[field].value === '') {
         errors[field] = `${startCase(field)} is required`;
       }
@@ -44,19 +59,21 @@ class FormContainer extends Component {
     if (!isEmpty(errors)) {
       const newState = {};
 
-      keys(errors).forEach(key => {
+      keys(errors).forEach((key) => {
         newState[key] = {
           ...this.state[key],
           error: errors[key],
         };
       });
 
-      return this.setState(newState);
+      this.setState(newState);
+
+      return;
     }
 
     const formValues = {};
 
-    this.props.fields.forEach(field => {
+    this.props.fields.forEach((field) => {
       formValues[field] = this.state[field].value;
     });
 
@@ -71,14 +88,14 @@ class FormContainer extends Component {
 
   hanldeInputChange(field) {
     return text => this.setState({
-      [field]: {value: text, error: null}
+      [field]: {value: text, error: null},
     });
   }
 
   getFields() {
-    const fieldProps = this.props.fieldProps || {};
+    const fieldProps: Object = this.props.fieldProps || {};
 
-    return this.props.fields.map(field => {
+    return this.props.fields.map((field) => {
       const {value, error} = this.state[field];
       const resultError = this.props.errors[field];
 
@@ -88,7 +105,7 @@ class FormContainer extends Component {
         label: startCase(field),
         onChangeText: this.hanldeInputChange(field),
         autoCorrect: false,
-        ...(fieldProps[field] || {})
+        ...(fieldProps[field] || {}),
       };
     });
   }
@@ -103,7 +120,7 @@ class FormContainer extends Component {
         submitButton={{
           icon: isFinalForm ? 'thumb-up' : 'arrow-forward',
           text: isFinalForm ? '' : 'Next',
-          onPress: this.onSubmit
+          onPress: this.handleSubmit,
         }}
         backButton={this.props.backButton && {
           icon: 'arrow-back',
