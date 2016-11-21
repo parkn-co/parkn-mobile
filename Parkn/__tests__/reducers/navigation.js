@@ -1,6 +1,5 @@
 /* eslint-env jest */
 
-import 'react-native';
 import React from 'react';
 import { REHYDRATE } from 'redux-persist/constants';
 import * as navigationActions from '../../src/actions/navigation';
