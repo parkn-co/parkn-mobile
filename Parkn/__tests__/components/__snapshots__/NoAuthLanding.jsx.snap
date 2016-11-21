@@ -1,0 +1,128 @@
+exports[`NoAuthLanding renders correctly using snapshots 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#076FEB",
+      "flex": 1,
+    }
+  }>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+        "padding": 15,
+      }
+    }>
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Object {
+          "color": "#FFFFFF",
+          "fontFamily": "Moon-Bold",
+          "fontSize": 50,
+          "opacity": 0.75,
+        }
+      }>
+      Parkn
+    </Text>
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+        "padding": 15,
+      }
+    }>
+    <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel={undefined}
+      accessibilityTraits={undefined}
+      accessible={true}
+      hitSlop={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "alignSelf": "stretch",
+          "borderColor": "rgba(255,255,255,0.5)",
+          "borderWidth": 1,
+          "justifyContent": "center",
+          "marginBottom": 15,
+          "opacity": 1,
+          "paddingBottom": 20,
+          "paddingTop": 20,
+        }
+      }
+      testID={undefined}>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "#FFFFFF",
+            "fontFamily": "OpenSans-Light",
+            "fontSize": 20,
+            "opacity": 0.75,
+          }
+        }>
+        Sign Up
+      </Text>
+    </View>
+    <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel={undefined}
+      accessibilityTraits={undefined}
+      accessible={true}
+      hitSlop={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "alignSelf": "stretch",
+          "borderColor": "rgba(255,255,255,0.5)",
+          "borderWidth": 1,
+          "justifyContent": "center",
+          "marginBottom": 15,
+          "opacity": 1,
+          "paddingBottom": 20,
+          "paddingTop": 20,
+        }
+      }
+      testID={undefined}>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "#FFFFFF",
+            "fontFamily": "OpenSans-Light",
+            "fontSize": 20,
+            "opacity": 0.75,
+          }
+        }>
+        Sign In
+      </Text>
+    </View>
+  </View>
+</View>
+`;

@@ -1,0 +1,29 @@
+exports[`Navigation actions return the correction action when didNavigateTo 1`] = `
+Object {
+  "payload": Object {
+    "component": [Function],
+    "id": "SampleRoute",
+  },
+  "type": "DID_NAVIGATE_TO",
+}
+`;
+
+exports[`Navigation actions return the correction action when navigateTo 1`] = `
+Object {
+  "payload": Object {
+    "component": [Function],
+    "id": "SampleRoute",
+  },
+  "type": "NAVIGATE_TO",
+}
+`;
+
+exports[`Navigation actions return the correction action when setIsNavigating 1`] = `
+Object {
+  "payload": Object {
+    "component": [Function],
+    "id": "SampleRoute",
+  },
+  "type": "NAV_SET_IS_NAVIGATING",
+}
+`;

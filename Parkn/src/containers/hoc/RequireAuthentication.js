@@ -3,7 +3,7 @@ import React, {Component, PropTypes} from 'react';
 import {isEmpty, compose} from 'lodash/fp';
 import type {User} from 'flow-declarations/user';
 import {defaultUser} from 'prop-types/user';
-import isAuthenticated from './isAuthenticated';
+import isAuthenticated from './IsAuthenticated';
 
 type Props = {
   user: User,

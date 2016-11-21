@@ -1,0 +1,46 @@
+exports[`Loading renders correctly using snapshots 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+        "padding": 10,
+      },
+      Object {
+        "backgroundColor": "#076FEB",
+      },
+    ]
+  }>
+  <View
+    style={
+      Object {
+        "transform": Array [
+          Object {
+            "rotate": "0deg",
+          },
+        ],
+      }
+    }>
+    <Text
+      accessible={true}
+      allowFontScaling={false}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "color": "rgba(255,255,255,0.75)",
+            "fontFamily": "Material Icons",
+            "fontSize": 50,
+            "fontStyle": "normal",
+            "fontWeight": "normal",
+          },
+          undefined,
+        ]
+      }>
+      
+    </Text>
+  </View>
+</View>
+`;

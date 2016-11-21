@@ -3,7 +3,7 @@ import Demo from './containers/Demo';
 import NoAuthLanding from './components/NoAuthLanding';
 import {NamesForm, EmailForm, PasswordForm} from './containers/Authentication/Forms';
 import AwaitingAuthentication from './containers/Authentication/AwaitingAuthentication';
-import requireAuthenticationHOC from './containers/hoc/requireAuthentication';
+import requireAuthenticationHOC from './containers/hoc/RequireAuthentication';
 
 export default function getRoutes(isLoggedIn) {
   return {

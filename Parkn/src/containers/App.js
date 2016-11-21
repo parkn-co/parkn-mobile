@@ -3,7 +3,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import Navigator from './Navigation';
-import isAuthenticated from './hoc/isAuthenticated';
+import isAuthenticated from './hoc/IsAuthenticated';
 import getRoutes from '../routes';
 
 type ReduxState = {

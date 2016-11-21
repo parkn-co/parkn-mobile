@@ -7,7 +7,11 @@
     "lint-fix": "eslint --fix ./src",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "dist:beta": "export $(cat .env | xargs) && cd ios/ && fastlane ios beta",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "jest": {
+    "preset": "jest-react-native"
   },
   "dependencies": {
     "lodash": "^4.16.4",
@@ -20,13 +24,10 @@
     "redux-persist": "^4.0.0-alpha6",
     "redux-thunk": "^2.1.0"
   },
-  "jest": {
-    "preset": "jest-react-native"
-  },
   "devDependencies": {
     "babel-eslint": "^7.0.0",
-    "babel-jest": "16.0.0",
-    "babel-preset-react-native": "1.9.0",
+    "babel-jest": "^17.0.0",
+    "babel-preset-react-native": "^1.9.0",
     "eslint": "^3.7.1",
     "eslint-config-airbnb": "^12.0.0",
     "eslint-plugin-flowtype": "^2.25.0",
@@ -34,8 +35,8 @@
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.4.1",
     "flow-bin": "^0.33.0",
-    "jest": "16.0.1",
-    "jest-react-native": "16.0.0",
-    "react-test-renderer": "15.3.2"
+    "jest": "^17.0.0",
+    "jest-react-native": "^17.0.0",
+    "redux-mock-store": "^1.2.1"
   }
 }
