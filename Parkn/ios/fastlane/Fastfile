@@ -45,7 +45,7 @@ platform :ios do
     sh "cd ../../ && ./bundle.sh"
 
     cert
-    sigh
+    sigh(provisioning_name: "iOS Team Provisioning Profile: *")
 
     gym(
       clean: true,
@@ -53,7 +53,7 @@ platform :ios do
     )
 
     crashlytics(
-      groups: "devs",
+      # groups: "devs",
       notes: "Automatic iOS Build",
       api_token: ENV["CRASHLYTICS_API_TOKEN"],
       build_secret: ENV["CRASHLYTICS_BUILD_SECRET"],

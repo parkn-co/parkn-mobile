@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -5,14 +7,21 @@ import {bluePalette, grayPalette} from '../../styles/colors';
 import {fontNames} from '../../styles/fonts';
 import UnderlinedTextInput from '../../components/UnderlinedInput';
 
-export default SignUpNamesComponent = ({
-  navigator,
+type Props = {
+  fields: Array<Object>,
+  handleSubmit: Function,
+  handleBackPress: Function,
+  backButton: any,
+  submitButton: any,
+};
+
+const FormComponent = ({
   fields,
   handleSubmit,
   handleBackPress,
   backButton,
   submitButton,
-}) => (
+}: Props): React.Element<*> => (
   <View style={styles.container}>
     <View style={styles.buttonWrapper}>
       {backButton ? (
@@ -46,6 +55,8 @@ export default SignUpNamesComponent = ({
     </View>
   </View>
 );
+
+export default FormComponent;
 
 const styles = StyleSheet.create({
   container: {

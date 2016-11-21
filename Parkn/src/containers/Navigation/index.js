@@ -1,17 +1,30 @@
+// @flow
+import type {User} from 'flow-declarations/user';
+
 import React, {Component, PropTypes} from 'react';
 import {View, StatusBar, Navigator, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {values} from 'lodash/fp';
-import NavBar from './NavBar';
 import {didNavigateTo, navigateTo, setIsNavigating} from '../../actions/navigation';
 
 class Navigation extends Component {
+  state: {
+    initialRoute: Object,
+    isNavigating: boolean,
+  };
+  renderScene: () => React.Element<*>;
+  onWillFocus: () => void;
+  navigator: Object;
+
   static propTypes = {
-    routes: PropTypes.object.isRequired,
+    routes: PropTypes.shape({}),
+    navigateTo: PropTypes.func.isRequired,
+    setIsNavigating: PropTypes.func.isRequired,
+    didNavigateTo: PropTypes.func.isRequired,
   }
 
-  constructor(props) {
+  constructor(props: Object) {
     super(props);
 
     this.state = {
@@ -23,22 +36,22 @@ class Navigation extends Component {
     this.onWillFocus = this.onWillFocus.bind(this);
   }
 
-  componentWillReceiveProps({navigateToRoute}) {
+  componentWillReceiveProps({navigateToRoute}: {navigateToRoute: {id: string}}) {
     if (navigateToRoute && !this.state.isNavigating) {
       this.props.setIsNavigating(true);
 
-      let method = navigateToRoute.method || 'push';
+      const method = navigateToRoute.method || 'push';
 
-      this.refs.navigator[method](this.routes[navigateToRoute.id]);
+      this.navigator[method](this.routes[navigateToRoute.id]);
     }
   }
 
-  renderScene(route, navigator) {
+  renderScene(route: Object, navigator: any): React.Element<*> {
     const RouteComponent = route.component;
 
     return (
       <View style={styles.sceneWrapper}>
-        <StatusBar barStyle={route.statusBarStyle || "light-content"} />
+        <StatusBar barStyle={route.statusBarStyle || 'light-content'} />
         <RouteComponent
           go={{
             to: this.props.navigateTo,
@@ -52,33 +65,35 @@ class Navigation extends Component {
     );
   }
 
-  onWillFocus(route) {
+  onWillFocus(route: Object) {
     this.props.didNavigateTo(route);
     this.setState({isNavigating: false});
   }
 
-  render() {
+  get routes(): Object {
+    return this.props.routes;
+  }
+
+  render(): React.Element<*> {
     return (
       <Navigator
-        ref="navigator"
+        ref={r => this.navigator = r}
         initialRoute={this.state.initialRoute}
         renderScene={this.renderScene}
         onWillFocus={this.onWillFocus}
-        navigationBar={<NavBar />}
       />
     );
   }
-
-  get routes() {
-    return this.props.routes;
-  }
 }
 
-function mapStateToProps({navigation, authentication: {token, user}}) {
+function mapStateToProps({navigation, authentication: {token, user}}: {
+  navigation: any,
+  authentication: {token: string, user: User}
+}): Object {
   return {...navigation, user, token};
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: Function): any {
   return bindActionCreators({
     didNavigateTo,
     navigateTo,
@@ -91,5 +106,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(Navigation);
 const styles = StyleSheet.create({
   sceneWrapper: {
     flex: 1,
-  }
+  },
 });
