@@ -1,7 +1,7 @@
 /* eslint-env jest */
 
 import React from 'react';
-import { REHYDRATE } from 'redux-persist/constants';
+import {REHYDRATE} from 'redux-persist/constants';
 import * as authenticationActions from '../../src/actions/authentication';
 import authenticationReducer from '../../src/reducers/authentication';
 
