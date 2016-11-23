@@ -16,6 +16,11 @@ export const grayPalette = {
   black: '#000000',
 };
 
+export const whiteOptacityPalette = {
+  fifty: 'rgba(255,255,255,0.50)',
+  seventy: 'rgba(255,255,255,0.70)',
+};
+
 export const errorTextColors = {
   orange: 'rgb(244, 206, 66)',
 };
