@@ -1,6 +1,5 @@
 // @flow
 import type {User} from 'flow-declarations/user';
-import Bar from './Bar';
 
 import React, {Component} from 'react';
 import {
@@ -29,7 +28,6 @@ function Demo({
       <Text style={styles.instructions}>
         {`Email: ${email}`}
       </Text>
-      <Bar />
       <TouchableOpacity style={styles.signOut} onPress={handleSignOut}>
         <Text>{'Sign Out'}</Text>
       </TouchableOpacity>
