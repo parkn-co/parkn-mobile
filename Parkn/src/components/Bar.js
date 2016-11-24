@@ -30,7 +30,7 @@ const Bar = ({label, height, icon}) => {
       </View>
       <View style={styles.footer} />
     </View>
-  )
+  );
 };
 
 Bar.propTypes = {

@@ -8,6 +8,7 @@ import {
   Text,
   View,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 
 function Demo({
@@ -31,6 +32,16 @@ function Demo({
       <TouchableOpacity style={styles.signOut} onPress={handleSignOut}>
         <Text>{'Sign Out'}</Text>
       </TouchableOpacity>
+      <ScrollView style={{backgroundColor: 'rgba(0,0,0,0)'}}>
+        <Text> Hello {'\n'} Hello {'\n'} Hello {'\n'} Hello {'\n'} </Text>
+        <Text> Hello {'\n'} Hello {'\n'} Hello {'\n'} Hello {'\n'} </Text>
+        <Text> Hello {'\n'} Hello {'\n'} Hello {'\n'} Hello {'\n'} </Text>
+        <Text> Hello {'\n'} Hello {'\n'} Hello {'\n'} Hello {'\n'} </Text>
+        <Text> Hello {'\n'} Hello {'\n'} Hello {'\n'} Hello {'\n'} </Text>
+        <Text> Hello {'\n'} Hello {'\n'} Hello {'\n'} Hello {'\n'} </Text>
+        <Text> Hello {'\n'} Hello {'\n'} Hello {'\n'} Hello {'\n'} </Text>
+        <Text> Hello {'\n'} Hello {'\n'} Hello {'\n'} Hello {'\n'} </Text>
+      </ScrollView>
     </View>
   );
 }
