@@ -11,13 +11,15 @@ import {
   ScrollView,
 } from 'react-native';
 
-function Demo({
-  handleSignOut,
-  user: {email, firstName, lastName}
-}: {
+type Props = {
   handleSignOut: () => void,
   user: User
-}): React.Element<*> {
+};
+
+const Demo = ({
+  handleSignOut,
+  user: {email, firstName, lastName}
+}: Props): React.Element<*> => {
   return (
     <View style={styles.container}>
       <Text style={styles.welcome}>
@@ -32,16 +34,6 @@ function Demo({
       <TouchableOpacity style={styles.signOut} onPress={handleSignOut}>
         <Text>{'Sign Out'}</Text>
       </TouchableOpacity>
-      <ScrollView style={{backgroundColor: 'rgba(0,0,0,0)'}}>
-        <Text> Hello {'\n'} Hello {'\n'} Hello {'\n'} Hello {'\n'} </Text>
-        <Text> Hello {'\n'} Hello {'\n'} Hello {'\n'} Hello {'\n'} </Text>
-        <Text> Hello {'\n'} Hello {'\n'} Hello {'\n'} Hello {'\n'} </Text>
-        <Text> Hello {'\n'} Hello {'\n'} Hello {'\n'} Hello {'\n'} </Text>
-        <Text> Hello {'\n'} Hello {'\n'} Hello {'\n'} Hello {'\n'} </Text>
-        <Text> Hello {'\n'} Hello {'\n'} Hello {'\n'} Hello {'\n'} </Text>
-        <Text> Hello {'\n'} Hello {'\n'} Hello {'\n'} Hello {'\n'} </Text>
-        <Text> Hello {'\n'} Hello {'\n'} Hello {'\n'} Hello {'\n'} </Text>
-      </ScrollView>
     </View>
   );
 }
@@ -85,5 +77,5 @@ const styles = StyleSheet.create({
     padding: 10,
     borderColor: '#333',
     borderWidth: 1,
-  }
+  },
 });
