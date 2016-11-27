@@ -18,32 +18,30 @@ class Panel extends Component {
   render() {
     return (
       <Swiper
+        horizontal={false}
         loop={false}
         showsPagination={false}
-        index={1}>
-        <View style={styles.container}>
-          <Text> Left </Text>
-        </View>
-        <Swiper
-          horizontal={false}
-          loop={false}
-          showsPagination={false}
-          index={1}>
+				index={0}
+			>
           <View style={styles.container}>
-	      {this.props.children}          
+	    			{this.props.children}
           </View>
-          <View style={styles.container}>
-            <Text> Bottom </Text>
-          </View>
-        </Swiper>        
-        <View style={styles.container}>
-          <Text> Right </Text>
-        </View>
+					<Swiper
+         	  loop={false}
+          	showsPagination
+						index={1}
+					>
+							<View style={styles.view}>
+								<Text>Left</Text>
+          		</View>
+          		<View style={styles.view}>
+								<Text>Bottom</Text>
+          		</View>
+         		  <View style={styles.view}>
+								<Text>Right</Text>
+          		</View>
+          </Swiper>
       </Swiper>
-
-      //<View style={styles.container}>
-        //{this.props.children}
-      //</View> 
     );
   }
 }
@@ -51,7 +49,10 @@ class Panel extends Component {
 export default Panel;
 
 const styles = {
-  container: {
+	container: {
+		flex: 1,
+	},
+  view: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
