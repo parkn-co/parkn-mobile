@@ -1,79 +1,100 @@
 // @flow
-// once pull up menu is working, look at react-native-swiper for side swping menus
-// https://medium.com/the-react-native-log/implement-snapchat-like-swipe-navigation-declaratively-in-react-native-309e71229c89#.mjq30663m
-
 import React, {Component} from 'react';
 import {
-	styleSheet,
+	StyleSheet,
 	View,
-	ScrollView,
 	Text,
+	PanResponder,
+	Animated,
 } from 'react-native';
 import Dimensions from 'Dimensions';
-import Swiper from 'react-native-swiper';
+import Bar from './Bar';
 
 const { width, height } = Dimensions.get('window');
 
 class Panel extends Component {
-		render() {
-			return (
-				<View>
-					<View style={styles.view}>
-						{this.props.children}
-					</View>
-					<ScrollView style={styles.container} showsVerticalScrollIndicator={false} >
-						<View style={styles.overlay} />
-					</ScrollView>
+	constructor(props) {
+		super(props);
+		this.state = {
+			pan: new Animated.ValueXY()
+		};
+	}
+
+	componentWillMount() {
+		this._animatedValueY = 0;
+
+		this.state.pan.y.addListener((value) => this._animatedValueY = value.value);
+
+		this._panResponder = PanResponder.create({
+			onMoveShouldSetResponderCapture: () => true, // allow movement
+			onMoveShouldSetPanResponderCapture: () => true, // allow dragging
+			onPanResponderGrant: (e, gestureState) => {
+				this.state.pan.setOffset({x: 0, y: this._animatedValueY});
+				this.state.pan.setValue({x: 0, y: 0}); // set inital
+			},
+			onPanResponderMove: Animated.event([
+				null, {dy: this.state.pan.y}
+			]), // handle movement and offset, possible to have a `dx` as well to allow for horizontal movment
+			//TODO: create system to bounce back if pull to offscreen areas
+			onPanResponderRelease: () => {
+				//this.state.pan.flattenOffset(); // ?? Flatten the offset so it resets the default positioning
+				Animated.spring(this.state.pan, {
+					toValue: 0
+				}).start();
+			}
+		});
+	}
+
+	render() {
+		return (
+			<View style={styles.container}>
+				<View style={[styles.view, styles.dimensions]}>
+					{this.props.children}
 				</View>
-			);
+				<Animated.View
+					style={this.getOverlayStyle()}
+					{...this._panResponder.panHandlers}
+				>
+					<View>
+						<Bar />
+					</View>
+				</Animated.View>
+			</View>
+		);
+	}
+
+	componentWillUnmount() {
+		this.state.pan.y.removeAllListeners();
+	}
+
+	getOverlayStyle = () => {
+		return [
+			styles.overlay,
+			styles.dimensions,
+			{
+				transform: this.state.pan.getTranslateTransform()
+			},
+		];
 	}
 }
-
-/*
-Sideways swiper
-
-<Swiper
-	loop={false}
-	showsPagination
-	index={1}
-	>
-		<View style={styles.view}>
-			<Text>Left</Text>
-		</View>
-		<View style={styles.view}>
-			<Text>Bottom</Text>
-		</View>
-		<View style={styles.view}>
-			<Text>Right</Text>
-		</View>
-</Swiper>
-*/
 
 export default Panel;
 
 const styles = {
 	container: {
 		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	dimensions: {
 		height,
 		width,
 	},
 	view: {
-		flex: 1,
-		height,
-		width,
 		position: 'absolute',
 	},
 	overlay: {
-		flex: 1,
-		height,
-		width,
-		opacity: .7,
-		backgroundColor: 'black',
-		marginTop: height-50,
-	},
-	overlayText: {
-		color: 'white',
+		top: height-75,
 	},
 };
-
 

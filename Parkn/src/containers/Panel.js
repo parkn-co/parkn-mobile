@@ -15,7 +15,7 @@ type Props = {
 
 const PanelContainer = ({handleSignOut, user}: Props): React.Element<*> => (
   <Panel>
-    <Demo handleSignOut={handleSignOut} user={user} />
+		<Demo handleSignOut={handleSignOut} user={user} />
   </Panel>
 );
 
