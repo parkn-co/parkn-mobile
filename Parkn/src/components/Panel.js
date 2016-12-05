@@ -4,10 +4,10 @@
 
 import React, {Component} from 'react';
 import {
-  StyleSheet,
-  View,
-  ScrollView,
-  Text,
+	styleSheet,
+	View,
+	ScrollView,
+	Text,
 } from 'react-native';
 import Dimensions from 'Dimensions';
 import Swiper from 'react-native-swiper';
@@ -15,38 +15,37 @@ import Swiper from 'react-native-swiper';
 const { width, height } = Dimensions.get('window');
 
 class Panel extends Component {
-  render() {
-    return (
-			<View style={styles.container}>
-				<View style={styles.staticContainer}>
-					{this.props.children}
+		render() {
+			return (
+				<View>
+					<View style={styles.view}>
+						{this.props.children}
+					</View>
+					<ScrollView style={styles.container} showsVerticalScrollIndicator={false} >
+						<View style={styles.overlay} />
+					</ScrollView>
 				</View>
-				<ScrollView showsVerticalScrollIndicator={false} >
-					<View style={{height}} />
-					<View style={styles.overlay} />
-				</ScrollView>
-      </View>
-    );
-  }
+			);
+	}
 }
 
 /*
 Sideways swiper
 
 <Swiper
-  loop={false}
- 	showsPagination
+	loop={false}
+	showsPagination
 	index={1}
 	>
 		<View style={styles.view}>
 			<Text>Left</Text>
- 		</View>
- 		<View style={styles.view}>
+		</View>
+		<View style={styles.view}>
 			<Text>Bottom</Text>
- 		</View>
- 	  <View style={styles.view}>
+		</View>
+		<View style={styles.view}>
 			<Text>Right</Text>
- 		</View>
+		</View>
 </Swiper>
 */
 
@@ -55,28 +54,26 @@ export default Panel;
 const styles = {
 	container: {
 		flex: 1,
+		height,
+		width,
 	},
-  //view: {
-    //flex: 1,
-    //alignItems: 'center',
-    //justifyContent: 'center',
-	//},
+	view: {
+		flex: 1,
+		height,
+		width,
+		position: 'absolute',
+	},
 	overlay: {
 		flex: 1,
-    height,
-    width,
-		opacity: 0.8,
+		height,
+		width,
+		opacity: .7,
 		backgroundColor: 'black',
+		marginTop: height-50,
 	},
-  staticContainer: {
-    flex: 1,
-		position: 'absolute',
-		left: 0,
-		top: 0,
-    height,
-    width,
-  },
-  overlayText: {
-    color: 'white',
-  },
+	overlayText: {
+		color: 'white',
+	},
 };
+
+
