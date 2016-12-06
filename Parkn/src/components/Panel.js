@@ -20,45 +20,52 @@ const percentOf = (total: number, percentage: number) => {
 
 class Panel extends Component {
 	state:  {
-		pan: Object
+		pan: Object,
+		isInDefault: boolean,
 	};
 
 	constructor(props) {
 		super(props);
 		this.state = {
 			pan: new Animated.ValueXY(),
+			isInDefault: true,
 		};
 	}
 
 	componentWillMount() {
+		// Note on animation values:
+		// negative `y` moves view above starting position
+		// positive `y` moves animated view below starting position
 		this._animatedValueY = 0;
 
 		this.state.pan.y.addListener((value) => this._animatedValueY = value.value);
 
 		this._panResponder = PanResponder.create({
-			onMoveShouldSetResponderCapture: () => true, // allow movement
-			onMoveShouldSetPanResponderCapture: () => true, // allow dragging
+			onMoveShouldSetResponderCapture: () => true,
+			onMoveShouldSetPanResponderCapture: () => true,
 			onPanResponderGrant: (e, gestureState) => {
 				this.state.pan.setOffset({x: 0, y: this._animatedValueY});
-				this.state.pan.setValue({x: 0, y: 0}); // set inital
+				this.state.pan.setValue({x: 0, y: 0});
 			},
 			onPanResponderMove: Animated.event([
 				null, {dy: this.state.pan.y}
-			]), // handle movement and offset, possible to have a `dx` as well to allow for horizontal movment
-			//TODO: create system to bounce back if pull to offscreen areas
+			]),
 			onPanResponderRelease: (e, {vx, vy}) => {
 				this.state.pan.flattenOffset(); // ?? Flatten the offset so it resets the default positioning
 
-				Animated.decay(this.state.pan, {
-					velocity: {x: vx, y: vy},
-					deceleration: 0.98 
-				}).start();
 
-				let y = this.state.pan.y._value,
+				let {isInDefault, pan: {y: {_value}}} = this.state,
 					position = 0;
 
-				if(y < -percentOf(height, 60))
-					position = -percentOf(height, 85);
+				// to deterime where view should spring too
+				if(_value < -percentOf(height, 10) && _value > -percentOf(height, 85)) {
+					if(isInDefault)
+						position = -percentOf(height, 85);
+					else
+						position = 0;
+					this.toggleMenu();
+					} else if(_value < -percentOf(height, 85))
+						position = -percentOf(height, 85);
 
 				Animated.spring(this.state.pan, {
 					toValue: {x: 0, y: position},
@@ -87,6 +94,12 @@ class Panel extends Component {
 
 	componentWillUnmount() {
 		this.state.pan.y.removeAllListeners();
+	}
+
+	toggleMenu = () => {
+		this.setState({
+			isInDefault: !this.state.isInDefault,
+		});
 	}
 
 	getOverlayStyle = () => {
