@@ -1,3 +1,4 @@
+
 // @flow
 import type {User} from 'flow-declarations/user';
 
@@ -6,17 +7,14 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {signOut} from 'actions/authentication';
 import Demo from 'components/Demo';
-import Panel from 'components/Panel';
 
 type Props = {
   handleSignOut: () => void,
   user: User,
 };
 
-const PanelContainer = ({handleSignOut, user}: Props): React.Element<*> => (
-  <Panel>
-		<Demo handleSignOut={handleSignOut} user={user} />
-  </Panel>
+const DemoContainer = ({handleSignOut, user}: Props): React.Element<*> => (
+  <Demo handleSignOut={handleSignOut} user={user} />
 );
 
 const mapDispatchToProps = (dispatch: Function): any => {
@@ -25,4 +23,5 @@ const mapDispatchToProps = (dispatch: Function): any => {
   }, dispatch);
 };
 
-export default connect(null, mapDispatchToProps)(PanelContainer);
+export default connect(null, mapDispatchToProps)(DemoContainer);
+

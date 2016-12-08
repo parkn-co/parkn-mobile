@@ -44,6 +44,7 @@ export function authenticateWithValues(isSignUp: boolean, values: Object) {
     }))
     .catch((err) => {
       let payload = err;
+      console.log('payload', payload);
 
       if (err.status === 409) {
         payload = {error: err, email: err.error};
