@@ -40,6 +40,14 @@ class OverlayMenu extends Component {
   }
 
   componentWillMount() {
+    console.log(this.props.children.measure((ox, oy, width, height, px, py) => {
+      console.log("ox: " + ox);
+      console.log("oy: " + oy);
+      console.log("width: " + width);
+      console.log("height: " + height);
+      console.log("px: " + px);
+      console.log("py: " + py);
+    }));
     // Note on animation values:
     // negative `y` moves view above starting position
     // positive `y` moves animated view below starting position
@@ -91,7 +99,10 @@ class OverlayMenu extends Component {
             style={this.getOverlayStyle()}
             {...this._panResponder.panHandlers}
           >
-            <View style={styles.menu}>
+            <View style={styles.menu} onLayout={(event) => {
+              let {x, y, width, height} = event.nativeEvent.layout;
+              console.log('x, y, width, height', x, y, width, height);
+            }}>
               {this.props.menu}
             </View>
           </Animated.View>
