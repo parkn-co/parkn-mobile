@@ -12,9 +12,9 @@ type Props = {
   user: User,
 }
 
-const LandingContainer = ({user}: Props): React.Element<*> => (
-  <OverlayMenu menu={<ControlPanel/>}>
-    <Demo user={user} />
+const LandingContainer = (props: Props): React.Element<*> => (
+  <OverlayMenu menu={<ControlPanel {...props} />}>
+    <Demo {...props} />
   </OverlayMenu>
 );
 

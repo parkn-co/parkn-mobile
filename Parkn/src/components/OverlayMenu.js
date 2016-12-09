@@ -91,7 +91,7 @@ class OverlayMenu extends Component {
             style={this.getOverlayStyle()}
             {...this._panResponder.panHandlers}
           >
-            <View>
+            <View style={styles.menu}>
               {this.props.menu}
             </View>
           </Animated.View>
@@ -127,6 +127,9 @@ const styles = {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  menu: {
+    flex: 1,
   },
   dimensions: {
     height,

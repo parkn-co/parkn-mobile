@@ -12,70 +12,65 @@ import {bluePalette, grayPalette, whiteOptacityPalette} from 'styles/colors';
 import {fontNames} from 'styles/fonts';
 
 type Props = {
-  height: number;
+  label: string,
+  height: number,
+  icon: string,
+  marginHorizontal: boolean | number,
+
+  style: Object,
 };
 
-const Bar = ({label, height, icon}) => {
+const Bar = ({label, height, icon, marginHorizontal, style}) => {
   let propStyles = {
     height: Boolean(height) ? height : 56,
+    marginHorizontal:
+      Boolean(marginHorizontal) ? (typeof marginHorizontal === 'boolean' ? 15 : marginHorizontal) : null,
   };
 
   return (
-    <View style={[styles.container, propStyles]}>
+    <View style={[styles.container, propStyles, style]}>
       <View style={styles.body}>
         <View style={styles.icon}>
           <Icon name={Boolean(icon) ? icon : 'details'} size={30} color={whiteOptacityPalette.seventy} />
         </View>
-        <Text style={styles.label}> {Boolean(label) ? label : 'Panel'} </Text>
+        <Text style={styles.label}> {Boolean(label) ? label : 'Parkn'} </Text>
       </View>
       <View style={styles.footer} />
     </View>
   );
 };
 
-Bar.propTypes = {
-  label: PropTypes.string,
-  height: PropTypes.number,
-  icon: PropTypes.string,
-};
-
 export default Bar;
 
 const styles = StyleSheet.create({
   container: {
-    alignSelf: 'stretch',
-    flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'stretch',
     justifyContent: 'center',
 
-    height: 50,
-    marginHorizontal: 15,
     backgroundColor: bluePalette.light,
     opacity: 0.8,
   },
   body: {
-    alignSelf: 'stretch',
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   footer: {
-    marginBottom: 6,
-    height: 1,
-    alignSelf: 'stretch',
-    backgroundColor: whiteOptacityPalette.fifty,
     marginHorizontal: 15,
+    marginBottom: 6,
+    backgroundColor: whiteOptacityPalette.fifty,
+    height: 1,
   },
   icon: {
     marginLeft: 20,
     opacity: 0.8,
   },
   label: {
+    marginRight: 20,
+    color: whiteOptacityPalette.seventy,
     fontFamily: 'OpenSans-Light',
     textAlign: 'center',
     fontSize: 22,
-    marginRight: 20,
-    color: whiteOptacityPalette.seventy
   },
 });
