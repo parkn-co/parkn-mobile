@@ -24,9 +24,8 @@ type Props = {
 class OverlayMenu extends Component {
   state: State;
   props: Props;
-  _menu: React.Element<*>;
-  toggleMenu: () => void;
   getOverlayStyle: () => Object;
+  onLayout: () => void;
 
   constructor(props) {
     super(props);
@@ -52,7 +51,7 @@ class OverlayMenu extends Component {
         null, {dy: this.state.pan.y}
       ]),
       onPanResponderRelease: (e, {vx, vy}) => {
-        let {pan, pan: {y: {_value}}, isInDefault, height} = this.state,
+        let {pan, pan: {y: {_value}}, height} = this.state,
           position = offset;
 
         pan.flattenOffset();
@@ -75,14 +74,14 @@ class OverlayMenu extends Component {
           <View style={[styles.view, styles.dimensions]}>
             {this.props.children}
           </View>
-            <Animated.View
-              style={this.getOverlayStyle()}
-              {...this._panResponder.panHandlers}
-            >
-              <View style={styles.menu} onLayout={this.onLayout}>
-                {this.props.menu}
-              </View>
-            </Animated.View>
+          <Animated.View
+            style={this.getOverlayStyle()}
+            {...this._panResponder.panHandlers}
+          >
+            <View style={styles.menu} onLayout={this.onLayout}>
+              {this.props.menu}
+            </View>
+          </Animated.View>
         </View>
       );
   }
@@ -119,17 +118,8 @@ const styles = {
   view: {
     position: 'absolute',
   },
-  menuWrapper: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-  },
   menu: {
     maxHeight: dimensions.height,
-    minHeight: 0,
-    borderColor: 'red',
-    borderWidth: 1,
   },
 };
 
