@@ -9,17 +9,13 @@ import {
 } from 'react-native';
 import Dimensions from 'Dimensions';
 
-const { width, height } = Dimensions.get('window');
-
-// used for animation
-// basis for overlay positioning
-const percentOf = (total: number, percentage: number) => {
-  return (percentage < 0) ? 0 : total * (percentage / 100);
-}
+const dimensions = Dimensions.get('window');
+const offset = dimensions.height * .9;
 
 type State = {
   pan: Object,
-  isInDefault: boolean,
+  height: number,
+  width: number,
 };
 type Props = {
   menu: React.Element<*>,
@@ -28,84 +24,65 @@ type Props = {
 class OverlayMenu extends Component {
   state: State;
   props: Props;
+  _menu: React.Element<*>;
   toggleMenu: () => void;
   getOverlayStyle: () => Object;
 
   constructor(props) {
     super(props);
     this.state = {
-      pan: new Animated.ValueXY(),
-      isInDefault: true,
+      pan: new Animated.ValueXY({x: 0, y: offset}),
+      height: 0,
     };
   }
 
   componentWillMount() {
-    console.log(this.props.children.measure((ox, oy, width, height, px, py) => {
-      console.log("ox: " + ox);
-      console.log("oy: " + oy);
-      console.log("width: " + width);
-      console.log("height: " + height);
-      console.log("px: " + px);
-      console.log("py: " + py);
-    }));
-    // Note on animation values:
-    // negative `y` moves view above starting position
-    // positive `y` moves animated view below starting position
-    this._animatedValueY = 0;
-
+    this._animatedValueY = offset;
     this.state.pan.y.addListener((value) => this._animatedValueY = value.value);
 
     this._panResponder = PanResponder.create({
       onMoveShouldSetResponderCapture: () => true,
       onMoveShouldSetPanResponderCapture: () => true,
       onPanResponderGrant: (e, gestureState) => {
-        this.state.pan.setOffset({x: 0, y: this._animatedValueY});
-        this.state.pan.setValue({x: 0, y: 0});
+        const {_animatedValueY, state: {pan}} = this;
+        pan.setOffset({x: 0, y: _animatedValueY});
+        pan.setValue({x: 0, y: 0});
       },
       onPanResponderMove: Animated.event([
         null, {dy: this.state.pan.y}
       ]),
       onPanResponderRelease: (e, {vx, vy}) => {
-        this.state.pan.flattenOffset(); // ?? Flatten the offset so it resets the default positioning
+        let {pan, pan: {y: {_value}}, isInDefault, height} = this.state,
+          position = offset;
 
-
-        let {isInDefault, pan: {y: {_value}}} = this.state,
-          position = 0;
+        pan.flattenOffset();
 
         // to deterime where view should spring too
-        if(_value < -percentOf(height, 10) && _value > -percentOf(height, 85)) {
-          if(isInDefault)
-            position = -percentOf(height, 85);
-          else
-            position = 0;
-          this.toggleMenu();
-          } else if(_value < -percentOf(height, 85))
-            position = -percentOf(height, 85);
+        // if menu is pulled above it's current position, it's negative and visa versa
+        if(_value < 0)
+          position = dimensions.height - height;
 
-        Animated.spring(this.state.pan, {
+        Animated.spring(pan, {
           toValue: {x: 0, y: position},
         }).start();
       }
     });
   }
 
-    render() {
+  render() {
       return (
         <View style={styles.container}>
           <View style={[styles.view, styles.dimensions]}>
             {this.props.children}
           </View>
-          <Animated.View
-            style={this.getOverlayStyle()}
-            {...this._panResponder.panHandlers}
-          >
-            <View style={styles.menu} onLayout={(event) => {
-              let {x, y, width, height} = event.nativeEvent.layout;
-              console.log('x, y, width, height', x, y, width, height);
-            }}>
-              {this.props.menu}
-            </View>
-          </Animated.View>
+            <Animated.View
+              style={this.getOverlayStyle()}
+              {...this._panResponder.panHandlers}
+            >
+              <View style={styles.menu} onLayout={this.onLayout}>
+                {this.props.menu}
+              </View>
+            </Animated.View>
         </View>
       );
   }
@@ -114,20 +91,18 @@ class OverlayMenu extends Component {
     this.state.pan.y.removeAllListeners();
   }
 
-  toggleMenu = () => {
-    this.setState({
-      isInDefault: !this.state.isInDefault,
-    });
-  }
-
   getOverlayStyle = () => {
+    let {height} = this.state;
     return [
-      styles.overlay,
-      styles.dimensions,
       {
-        transform: this.state.pan.getTranslateTransform()
+        height,
+        transform: this.state.pan.getTranslateTransform(),
       },
     ];
+  }
+
+  onLayout = ({nativeEvent: {layout: {height}}}) => {
+    this.setState({ height});
   }
 }
 
@@ -136,21 +111,25 @@ export default OverlayMenu;
 const styles = {
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  menu: {
-    flex: 1,
   },
   dimensions: {
-    height,
-    width,
+    height: dimensions.height,
+    width: dimensions.width,
   },
   view: {
     position: 'absolute',
   },
-  overlay: {
-    top: percentOf(height, 90),
+  menuWrapper: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  menu: {
+    maxHeight: dimensions.height,
+    minHeight: 0,
+    borderColor: 'red',
+    borderWidth: 1,
   },
 };
 

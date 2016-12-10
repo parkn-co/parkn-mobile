@@ -15,7 +15,7 @@ const ControlPanelContainer = ({user}: Props): React.Element<*> => (
   <View style={styles.container}>
     <Bar label={user.firstName} marginHorizontal/>
     <Box style={{backgroundColor: 'red'}} marginHorizontal>
-      <View style={{height: 200}} />
+      <View style={{height: 300}} />
     </Box>
   </View>
 );
