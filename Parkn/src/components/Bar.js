@@ -16,15 +16,18 @@ type Props = {
   height: number,
   icon: string,
   marginHorizontal: boolean | number,
+  marginVertical: boolean | number,
 
   style: Object,
 };
 
-const Bar = ({label, height, icon, marginHorizontal, style}) => {
+const Bar = ({label, height, icon, marginHorizontal, marginVertical, style}) => {
   let propStyles = {
     height: Boolean(height) ? height : 56,
     marginHorizontal:
       Boolean(marginHorizontal) ? (typeof marginHorizontal === 'boolean' ? 15 : marginHorizontal) : null,
+    marginVertical:
+      Boolean(marginVertical) ? (typeof marginVertical === 'boolean' ? 15 : marginVertical) : null
   };
 
   return (

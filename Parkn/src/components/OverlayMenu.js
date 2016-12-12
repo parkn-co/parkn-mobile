@@ -69,21 +69,21 @@ class OverlayMenu extends Component {
   }
 
   render() {
-      return (
-        <View style={styles.container}>
-          <View style={[styles.view, styles.dimensions]}>
-            {this.props.children}
-          </View>
-          <Animated.View
-            style={this.getOverlayStyle()}
-            {...this._panResponder.panHandlers}
-          >
-            <View style={styles.menu} onLayout={this.onLayout}>
-              {this.props.menu}
-            </View>
-          </Animated.View>
+    return (
+      <View style={styles.container}>
+        <View style={[styles.view, styles.dimensions]}>
+          {this.props.children}
         </View>
-      );
+        <Animated.View
+          style={this.getOverlayStyle()}
+          {...this._panResponder.panHandlers}
+        >
+          <View style={styles.menu} onLayout={this.onLayout}>
+            {this.props.menu}
+          </View>
+        </Animated.View>
+      </View>
+    );
   }
 
   componentWillUnmount() {
@@ -107,7 +107,7 @@ class OverlayMenu extends Component {
 
 export default OverlayMenu;
 
-const styles = {
+const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
@@ -121,5 +121,5 @@ const styles = {
   menu: {
     maxHeight: dimensions.height,
   },
-};
+});
 

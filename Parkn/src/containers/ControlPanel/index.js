@@ -2,7 +2,11 @@
 import type {User} from 'flow-declarations/user';
 
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import {
+  View,
+  ScrollView,
+  Text,
+} from 'react-native';
 import {signOut} from 'actions/authentication';
 import Bar from 'components/Bar';
 import Box from 'components/Box';
@@ -14,11 +18,13 @@ type Props = {
 const ControlPanelContainer = ({user}: Props): React.Element<*> => (
   <View style={styles.container}>
     <Bar label={user.firstName} marginHorizontal/>
-    <Box style={{backgroundColor: 'red'}} marginHorizontal>
+    <Box style={{backgroundColor: 'red', margin: 15}}>
       <View style={{height: 300}} />
     </Box>
   </View>
 );
+
+// <View style={{height: 575}} />
 
 export default ControlPanelContainer;
 
