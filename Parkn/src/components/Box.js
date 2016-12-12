@@ -3,7 +3,7 @@ import {View} from 'react-native';
 
 type Props = {
   marginHorizontal: boolean | number,
-  marginVertial: boolean | number,
+  marginVertical: boolean | number,
   style: Object,
 
   children: Array<React.Element<*>>,
