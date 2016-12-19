@@ -17,10 +17,12 @@ type Props = {
 
 const ControlPanelContainer = ({user}: Props): React.Element<*> => (
   <View style={styles.container}>
-    <Bar label={user.firstName} marginHorizontal/>
-    <Box style={{backgroundColor: 'red'}} marginHorizontal marginVertical >
-      <View style={{height: 300}} />
-    </Box>
+    <ScrollView>
+      <Bar label={user.firstName} marginHorizontal />
+      <Box style={{backgroundColor: 'red'}} marginHorizontal marginVertical >
+        <View style={{height: 300}} />
+      </Box>
+    </ScrollView>
   </View>
 );
 
@@ -36,5 +38,5 @@ const styles = {
     justifyContent: 'space-between',
 
     backgroundColor: 'transparent',
-  }
-}
+  },
+};

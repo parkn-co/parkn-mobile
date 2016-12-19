@@ -17,11 +17,11 @@ const DemoContainer = ({handleSignOut, user}: Props): React.Element<*> => (
   <Demo handleSignOut={handleSignOut} user={user} />
 );
 
-const mapDispatchToProps = (dispatch: Function): any => {
-  return bindActionCreators({
+const mapDispatchToProps = (dispatch: Function): any =>
+  bindActionCreators({
     handleSignOut: signOut,
   }, dispatch);
-};
+
 
 export default connect(null, mapDispatchToProps)(DemoContainer);
 
