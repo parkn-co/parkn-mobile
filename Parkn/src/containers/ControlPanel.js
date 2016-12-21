@@ -31,7 +31,14 @@ const ControlPanelContainer = ({user}: ControlPanelProps): React.Element<*> => (
     horizontal
     pagingEnabled
     showsHorizontalScrollIndicator={false}
+    // look into other options, only works for ios according to docs
+    contentOffset={{x: width, y: 0}}
   >
+    <View style={styles.node}>
+      <Box style={{backgroundColor: 'green'}} marginHorizontal marginVertical >
+        <View style={{height: 550}} />
+      </Box>
+    </View>
     <View style={styles.node}>
       <Box style={{backgroundColor: 'red'}} marginHorizontal marginVertical >
         <View style={{height: 550}} />
@@ -59,7 +66,9 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'space-around',
 
-    width: (width * 2),
+    // i don't like this, maybe make ControlPanelContainer
+    // stateful and use onLayout to get the width?
+    width: (width * 3),
   },
   node: {
     flex: 1,
