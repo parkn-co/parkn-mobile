@@ -3,28 +3,19 @@ import type {User} from 'flow-declarations/user';
 
 import React, {Component} from 'react';
 import {
-  View,
+  Dimensions,
   ScrollView,
-  Text,
+  View,
 } from 'react-native';
-import Dimensions from 'Dimensions';
-import Bar from 'components/Bar';
 import Box from 'components/Box';
 
 const {height, width} = Dimensions.get('window');
 
-type ControlHeaderProps = {
+type ControlMenuProps = {
   user: User,
 };
 
-const ControlHeaderContainer = ({user}: ControlHeaderProps): React.Element<*> =>
-  <Bar label={user.firstName} marginHorizontal />;
-
-type ControlPanelProps = {
-  user: User,
-};
-
-const ControlPanelContainer = ({user}: ControlPanelProps): React.Element<*> => (
+const ControlMenuContainer = ({user}: ControlMenuProps): React.Element<*> => (
   <ScrollView
     style={styles.container}
     contentContainerStyle={styles.content}
@@ -52,8 +43,7 @@ const ControlPanelContainer = ({user}: ControlPanelProps): React.Element<*> => (
   </ScrollView>
 );
 
-// Maybe shouldn't be containers because both just recieve props, and don't talk to store?
-export {ControlPanelContainer, ControlHeaderContainer};
+export default ControlMenuContainer;
 
 const styles = {
   container: {

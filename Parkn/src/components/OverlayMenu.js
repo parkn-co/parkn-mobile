@@ -1,13 +1,13 @@
 // @flow
 import React, {Component} from 'react';
 import {
-  StyleSheet,
-  View,
-  Text,
-  PanResponder,
   Animated,
+  Dimensions,
+  PanResponder,
+  StyleSheet,
+  Text,
+  View,
 } from 'react-native';
-import Dimensions from 'Dimensions';
 import Bar from './Bar';
 
 const dimensions = Dimensions.get('window');
