@@ -8,22 +8,26 @@ import {
   Animated,
 } from 'react-native';
 import Dimensions from 'Dimensions';
+import Bar from './Bar';
 
 const dimensions = Dimensions.get('window');
-const offset = dimensions.height * .9;
+const offset = dimensions.height * 0.9;
 
 type State = {
   pan: Object,
   height: number,
-  width: number,
+  isOpen: boolean,
 };
 type Props = {
+  children: Array<React.Element<*>>,
+  header: React.Element<*>,
   menu: React.Element<*>,
 };
 
 class OverlayMenu extends Component {
   state: State;
   props: Props;
+  panResponder: Object;
   getOverlayStyle: () => Object;
   onLayout: () => void;
 
@@ -32,39 +36,39 @@ class OverlayMenu extends Component {
     this.state = {
       pan: new Animated.ValueXY({x: 0, y: offset}),
       height: 0,
+      isOpen: false,
     };
   }
 
   componentWillMount() {
-    this._animatedValueY = offset;
-    this.state.pan.y.addListener((value) => this._animatedValueY = value.value);
+    this.animatedValueY = offset;
+    this.state.pan.y.addListener((value) => { this.animatedValueY = value.value; });
 
-    this._panResponder = PanResponder.create({
+    this.panResponder = PanResponder.create({
       onMoveShouldSetResponderCapture: () => true,
       onMoveShouldSetPanResponderCapture: () => true,
       onPanResponderGrant: (e, gestureState) => {
-        const {_animatedValueY, state: {pan}} = this;
-        pan.setOffset({x: 0, y: _animatedValueY});
+        const {animatedValueY, state: {pan}} = this;
+        pan.setOffset({x: 0, y: animatedValueY});
         pan.setValue({x: 0, y: 0});
       },
       onPanResponderMove: Animated.event([
-        null, {dy: this.state.pan.y}
+        null, {dy: this.state.pan.y},
       ]),
       onPanResponderRelease: (e, {vx, vy}) => {
-        let {pan, pan: {y: {_value}}, height} = this.state,
-          position = offset;
+        const {pan, pan: {y: {_value}}, height} = this.state;
+        let position = offset;
 
         pan.flattenOffset();
 
-        // to deterime where view should spring too
-        // if menu is pulled above it's current position, it's negative and visa versa
-        if(_value < 0)
+        if (_value < 0) {
           position = dimensions.height - height;
+        }
 
         Animated.spring(pan, {
           toValue: {x: 0, y: position},
         }).start();
-      }
+      },
     });
   }
 
@@ -74,11 +78,11 @@ class OverlayMenu extends Component {
         <View style={[styles.view, styles.dimensions]}>
           {this.props.children}
         </View>
-        <Animated.View
-          style={this.getOverlayStyle()}
-          {...this._panResponder.panHandlers}
-        >
+        <Animated.View style={this.getOverlayStyle()}>
           <View style={styles.menu} onLayout={this.onLayout}>
+            <Animated.View {...this.panResponder.panHandlers} >
+              {this.props.header}
+            </Animated.View>
             {this.props.menu}
           </View>
         </Animated.View>
@@ -91,17 +95,18 @@ class OverlayMenu extends Component {
   }
 
   getOverlayStyle = () => {
-    let {height} = this.state;
+    const {height} = this.state;
     return [
       {
         height,
+        maxHeight: dimensions.height,
         transform: this.state.pan.getTranslateTransform(),
       },
     ];
   }
 
   onLayout = ({nativeEvent: {layout: {height}}}) => {
-    this.setState({ height});
+    this.setState({height});
   }
 }
 
@@ -117,9 +122,6 @@ const styles = StyleSheet.create({
   },
   view: {
     position: 'absolute',
-  },
-  menu: {
-    maxHeight: dimensions.height,
   },
 });
 

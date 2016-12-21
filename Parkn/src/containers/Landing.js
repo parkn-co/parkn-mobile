@@ -5,7 +5,7 @@ import React, {Component} from 'react';
 import {View} from 'react-native';
 
 import OverlayMenu from 'components/OverlayMenu';
-import ControlPanel from 'containers/ControlPanel';
+import {ControlPanelContainer, ControlHeaderContainer} from 'containers/ControlPanel';
 import Demo from 'containers/Demo';
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
 }
 
 const LandingContainer = (props: Props): React.Element<*> => (
-  <OverlayMenu menu={<ControlPanel {...props} />}>
+  <OverlayMenu header={<ControlHeaderContainer {...props} />} menu={<ControlPanelContainer {...props} />}>
     <Demo {...props} />
   </OverlayMenu>
 );
