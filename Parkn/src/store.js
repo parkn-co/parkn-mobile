@@ -3,7 +3,7 @@ import {compose} from 'lodash/fp';
 import {AsyncStorage} from 'react-native';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
-import {persistStore, autoRehydrate} from 'redux-persist'
+import {persistStore, autoRehydrate} from 'redux-persist';
 import rootReducer from './reducers';
 
 // Uncomment to clear the AsyncStorage store of the redux store

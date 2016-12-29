@@ -8,15 +8,18 @@ import {
   Text,
   View,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 
-function Demo({
-  handleSignOut,
-  user: {email, firstName, lastName}
-}: {
+type Props = {
   handleSignOut: () => void,
   user: User
-}): React.Element<*> {
+};
+
+const Demo = ({
+  handleSignOut,
+  user: {email, firstName, lastName}
+}: Props): React.Element<*> => {
   return (
     <View style={styles.container}>
       <Text style={styles.welcome}>
@@ -74,5 +77,5 @@ const styles = StyleSheet.create({
     padding: 10,
     borderColor: '#333',
     borderWidth: 1,
-  }
+  },
 });
