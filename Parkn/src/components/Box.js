@@ -10,11 +10,11 @@ type Props = {
 }
 
 const Box = ({marginHorizontal, marginVertical, style, children}: Props): React.Element<*> => {
-  let propStyles = {
+  const propStyles = {
     marginHorizontal:
       Boolean(marginHorizontal) ? (typeof marginHorizontal === 'boolean' ? 15 : marginHorizontal) : null,
     marginVertical:
-      Boolean(marginVertical) ? (typeof marginVertical === 'boolean' ? 15 : marginVertical) : null
+      Boolean(marginVertical) ? (typeof marginVertical === 'boolean' ? 15 : marginVertical) : null,
   };
 
   return (
@@ -30,5 +30,5 @@ const styles = {
   container: {
     backgroundColor: 'white',
     opacity: 0.8,
-  }
+  },
 };

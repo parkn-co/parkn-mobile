@@ -72,6 +72,10 @@ class OverlayMenu extends Component {
     });
   }
 
+  componentWillUnmount() {
+    this.state.pan.y.removeAllListeners();
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -88,10 +92,6 @@ class OverlayMenu extends Component {
         </Animated.View>
       </View>
     );
-  }
-
-  componentWillUnmount() {
-    this.state.pan.y.removeAllListeners();
   }
 
   getOverlayStyle = () => {
