@@ -62,9 +62,5 @@
       }
     }
   },
-  "parser": "babel-eslint",
-  "globals": {
-    "__DEVCLIENT__": true,
-    "__DEVSERVER__": true
-  }
+  "parser": "babel-eslint"
 }
